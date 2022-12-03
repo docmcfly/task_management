@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext"  date="2021-11-21T08:36:35Z" product-name="taskmanagement">
+		<header/>
+		<body>
+			<trans-unit id="plugin.name">
+				<source>Task management board</source>
+			</trans-unit>
+			<trans-unit id="plugin.description">
+				<source>Lists all tasks and you kann create and edit open tasks.</source>
+			</trans-unit>
+			<trans-unit id="flexforms_general.title">
+				<source>Common settings</source>
+			</trans-unit>
+			<trans-unit id="flexforms_general.settings.renderType">
+				<source>Representation form</source>
+			</trans-unit>
+			<trans-unit id="flexforms_general.settings.renderType.simnple">
+				<source>Simple</source>
+			</trans-unit>
+			<trans-unit id="flexforms_general.settings.renderType.full">
+				<source>All options</source>
+			</trans-unit>
+			
+		</body>
+	</file>
+</xliff>

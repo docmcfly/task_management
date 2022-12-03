@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext"  date="2021-11-21T08:36:35Z" product-name="taskmanagement">
+		<header/>
+		<body>
+			<trans-unit id="plugin.name">
+				<source>Task management board</source>
+				<target state="tanslated">Aufgabenverwaltung</target>
+			</trans-unit>
+			<trans-unit id="plugin.description">
+				<source>Lists all tasks and you kann create and edit open tasks.</source>
+				<target state="tanslated">Listet alle offenen und abgeschlossenen Aufgaben auf. Es können neue erstellt, unerledigte gelöscht und offene Aufgaben abgeschlossen werden.</target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.title">
+				<source>Common settings</source>
+				<target state="tanslated">Allgemeine Einstellungen</target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.settings.renderType">
+				<source>Representation form</source>
+				<target state="tanslated">Darstellungsform</target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.settings.renderType.simnple">
+				<source>Simple</source>
+				<target state="tanslated">Einfach</target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.settings.renderType.full">
+				<source>All options</source>
+				<target state="tanslated">Alle Möglichkeiten (erweitert)</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -1,0 +1,20 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+<f:layout name="Default"/>
+<f:section name="content">
+<f:translate key="LLL:EXT:task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.salutation" arguments="{0:user.name}" />
+
+<f:translate key="LLL:EXT:task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.teaser" />
+
+{url}
+
+<f:translate key="LLL:EXT:task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.footer" />
+ 
+<f:translate key="LLL:EXT:task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.regards" />
+</f:section>
+</body></html>
+
+

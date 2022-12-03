@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:taskmanagement/Resources/Private/Language/locallang_db.xlf" date="2021-11-21T08:36:35Z" product-name="taskmanagement">
+		<header/>
+		<body>
+			<trans-unit id="tx_taskmanagement_domain_model_task">
+				<source>Task</source>
+				<target state="tanslated">Aufgabe</target>
+			</trans-unit>
+			<trans-unit id="tx_taskmanagement_domain_model_task.title">
+				<source>Title</source>
+				<target state="tanslated">Aufgabenbeschreibung</target>
+			</trans-unit>
+			<trans-unit id="tx_taskmanagement_domain_model_task.done_at">
+				<source>Done At</source>
+				<target state="tanslated">Erledigt am</target>
+			</trans-unit>
+			<trans-unit id="tx_taskmanagement_domain_model_task.user">
+				<source>User</source>
+				<target state="tanslated">Nutzer</target>
+			</trans-unit>
+			
+			<trans-unit id="tx_taskmanagement_domain_model_user.info_mail_when_repeated_task_added">
+				<source>Should an info email be sent when a task repeats?</source>
+				<target state="tanslated">Soll eine Info-E-Mail versandt werden, wenn eine Aufgabe sich wiederholt?</target>
+			</trans-unit>
+			<trans-unit id="tx_taskmanagement_domain_model_user.tab_settings">
+				<source>Task management</source>
+				<target state="tanslated">Aufgabenverwaltung</target>
+			</trans-unit>
+			<trans-unit id="tx_taskmanagement_domain_model_user.tx_extbase_type">
+				<source>Task management</source>
+				<target state="tanslated">Aufgabenverwaltung</target>
+			</trans-unit>
+			
+			
+			
+			
+		</body>
+	</file>
+</xliff>

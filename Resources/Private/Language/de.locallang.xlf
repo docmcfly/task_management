@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:taskmanagement/Resources/Private/Language/locallang.xlf" date="2021-11-21T08:36:35Z"
+		product-name="taskmanagement">
+		<header />
+		<body>
+			<trans-unit id="tx_taskmanagement_domain_model_task">
+				<source>Task</source>
+				<target state="tanslated">Aufgabe</target>
+			</trans-unit>
+			<trans-unit id="tx_taskmanagement_domain_model_task.title">
+				<source>Task title</source>
+				<target state="tanslated">Aufgabenbeschreibung</target>
+			</trans-unit>
+			<trans-unit id="tx_taskmanagement_domain_model_task.done_at">
+				<source>Done At</source>
+				<target state="tanslated">Erledigt am</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.openTasks">
+				<source>Open tasks</source>
+				<target state="tanslated">Offene Aufgaben</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.openTasks.createdBy">
+				<source>created by</source>
+				<target state="tanslated">angelegt von</target>
+			</trans-unit>
+
+			<trans-unit id="taskManagement.form.openTasks.repeatInformation">
+				<source>Re-issue the completed task after:</source>
+				<target state="tanslated">Wiederauflage der erledigten Aufgabe nach:</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.openTasks.repeatPeriodUnit.singular.days">
+				<source>day</source>
+				<target state="tanslated">Tag</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.openTasks.repeatPeriodUnit.singular.weeks">
+				<source>week</source>
+				<target state="tanslated">Woche</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.openTasks.repeatPeriodUnit.singular.months">
+				<source>month</source>
+				<target state="tanslated">Monat</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.openTasks.repeatPeriodUnit.singular.years">
+				<source>year</source>
+				<target state="tanslated">Jahr</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.openTasks.repeatPeriodUnit.plural.days">
+				<source>days</source>
+				<target state="tanslated">Tage</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.openTasks.repeatPeriodUnit.plural.weeks">
+				<source>weeks</source>
+				<target state="tanslated">Wochen</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.openTasks.repeatPeriodUnit.plural.months">
+				<source>months</source>
+				<target state="tanslated">Monate</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.openTasks.repeatPeriodUnit.plural.years">
+				<source>years</source>
+				<target state="tanslated">Jahre</target>
+			</trans-unit>
+
+			<trans-unit id="taskManagement.doneTasks">
+				<source>Done tasks (last six months)</source>
+				<target state="tanslated">Abgeschlossene Aufgaben (die letzten 14 Monate)</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.closedBy">
+				<source>Closed by</source>
+				<target state="tanslated">Erledigt von</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.doneTasks.reIssueAt">
+				<source>Re-issue the completed task:</source>
+				<target state="tanslated">Wiederauflage der erledigten Aufgabe:</target>
+			</trans-unit>
+			
+			<trans-unit id="taskmanagement.form.confirmDoneTask">
+				<source>Are you sure that the task has been completed?</source>
+				<target state="tanslated">Bist Du sicher, dass die Aufgabe vollständig erledigt wurde?</target>
+			</trans-unit>
+			<trans-unit id="taskmanagement.form.confirmRemoveTask">
+				<source>Do you really want to delete the task?</source>
+				<target state="tanslated">Willst Du die Aufgabe wirklich löschen?</target>
+			</trans-unit>
+			<trans-unit id="taskmanagement.form.doneTask">
+				<source>✓</source>
+				<target state="tanslated">✓</target>
+			</trans-unit>
+			<trans-unit id="taskmanagement.form.doneTask.title">
+				<source>The task is done</source>
+				<target state="tanslated">Die Aufgabe ist erledigt.</target>
+			</trans-unit>
+			<trans-unit id="taskmanagement.form.removeTask">
+				<source>∅</source>
+				<target state="tanslated">∅</target>
+			</trans-unit>
+			<trans-unit id="taskmanagement.form.removeTask.title">
+				<source>Remove this task</source>
+				<target state="tanslated">Löschen der Aufgabe</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.createTask">
+				<source>+</source>
+				<target state="tanslated">+</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.createTask.enableRepetition">
+				<source>Re-issue the task after:</source>
+				<target state="tanslated">Wiederauflage der Aufgabe nach:</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.createTask.enableRepetition.description">
+				<source>After the task is completed, it will be put back on after the specified period of time.</source>
+				<target state="tanslated">Nach der Erledigung der Aufgabe wird die Aufgabe nach dem angegebenen Zeitraum wieder aufgelegt.</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.createTask.repeatPeriodUnit.optionDays">
+				<source>Days</source>
+				<target state="tanslated">Tage</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.createTask.repeatPeriodUnit.optionWeeks">
+				<source>Weeks</source>
+				<target state="tanslated">Wochen</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.createTask.repeatPeriodUnit.optionMonths">
+				<source>Months</source>
+				<target state="tanslated">Monate</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.createTask.repeatPeriodUnit.optionYears">
+				<source>Years</source>
+				<target state="tanslated">Jahre</target>
+			</trans-unit>
+			<trans-unit id="taskmanagement.form.duplcateTask">
+				<source>♻</source>
+				<target state="tanslated">♻</target>
+			</trans-unit>
+			<trans-unit id="taskmanagement.form.duplcateTask.title">
+				<source>Use this task as draft for a new task</source>
+				<target state="tanslated">Verwende diese Aufgabe als Vorlage für eine neue Aufgabe</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.01">
+				<source>January</source>
+				<target state="tanslated">Januar</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.02">
+				<source>February</source>
+				<target state="tanslated">Februar</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.03">
+				<source>March</source>
+				<target state="tanslated">März</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.04">
+				<source>April</source>
+				<target state="tanslated">April</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.05">
+				<source>May</source>
+				<target state="tanslated">Mai</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.06">
+				<source>June</source>
+				<target state="tanslated">Juni</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.07">
+				<source>July</source>
+				<target state="tanslated">Juli</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.08">
+				<source>August</source>
+				<target state="tanslated">August</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.09">
+				<source>September</source>
+				<target state="tanslated">September</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.10">
+				<source>October</source>
+				<target state="tanslated">Oktober</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.11">
+				<source>November</source>
+				<target state="tanslated">November</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.12">
+				<source>December</source>
+				<target state="tanslated">Dezember</target>
+			</trans-unit>
+
+			<trans-unit id="task.taskManagementInformer.title">
+				<source>Task management change informer</source>
+				<target>Aufgabenverwalungsänderungsmelder</target>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.description">
+				<source>Informs the users if a task is repeated.</source>
+				<target>Informiert die Nutzer, wenn eine Aufgaben automatisch wiederholt wird.</target>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.taskManagementStorageUid">
+				<source>Task storage uid</source>
+				<target>Speicherort der Aufgaben</target>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.invalidPage.taskManagementStorageUid">
+				<source>The specified task storage uid is not a valid page.</source>
+				<target>Der angegebene Speicherort der Aufgaben ist keine gültige Seite. </target>
+			</trans-unit> 
+			
+			<trans-unit id="task.taskManagementInformer.informFeUserGroupUids">
+				<source>User groups to be informed</source>
+				<target>Zu informierende Benutzergruppen</target>
+			</trans-unit>
+
+			<trans-unit id="task.taskManagementInformer.senderName">
+				<source>Sender name (If you leave this field blank, a default name will be used)</source>
+				<target>Absendername (Wenn Sie dieses Feld leer lassen, wird ein Standardname verwendet)</target>
+			</trans-unit>
+
+			<trans-unit id="task.taskManagementInformer.error.invalidFrontendUserGroup.informFeUserGroupUids">
+				<source>The list contains the following invalid user group: %1 </source>
+				<target>Die Liste enthält die folgende ungültige Nutzergruppe: %1 </target>
+			</trans-unit>
+			
+			<trans-unit id="task.taskManagementInformer.infoMailTargetUrl">
+				<source>Target URL of the task list</source>
+				<target>Ziel URL der Aufgabenliste</target>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.invalidPage.taskManagementStorageUid">
+				<source>The URL is invalid.</source>
+				<target>Die URL ist ungültig.</target>
+			</trans-unit>
+
+			<trans-unit id="taskManagement.settings.title">
+				<source>Setting of the task management</source>
+				<target>Einstellung - Aufgabenverwaltung</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.settings.form.infoMailWhenRepeatedTaskAdded">
+				<source>Sends a notification email when repetitive tasks have been hung up again.</source>
+				<target>Sendet eine Benachtigungs-E-Mail, wenn sich wiederholende Aufgaben wieder aufgelegt worden.</target>
+			</trans-unit>
+			<trans-unit id="taskManagement.settings.form.submit">
+				<source>Save</source>
+				<target>Speichern</target>
+			</trans-unit>
+
+			<trans-unit id="taskManagementsettings.error.notLoggedIn">
+				<source>You are not logged in.</source>
+				<target>Sie sind nicht eingeloggt.</target>
+			</trans-unit>
+
+			<trans-unit id="task.taskManagementInformer.informMail.senderName">
+				<source>Informer service</source>
+				<target>Informationsservice</target>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.informMail.subject">
+				<source>A repetitive task has been put on again</source>
+				<target>Eine wiederholende Aufgaben wurde wieder augelegt</target>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.informMail.salutation">
+				<source>Hello %s</source>
+				<target>Hallo %s</target>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.informMail.teaser">
+				<source>At least one repetitive task has been reissued. You can find the task under: </source>
+				<target>Es wurde mindestens eine sich wiederholende Aufgaben wieder aufgelegt. Du findest die Aufgabe unter:</target>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.informMail.footer">
+				<source>Best regards, 
+your webmaster</source>
+				<target>Schöne Grüße
+Dein Webmaster</target>
+			</trans-unit>
+
+
+
+		</body>
+	</file>
+</xliff>
+
+

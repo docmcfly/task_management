@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:taskmanagement/Resources/Private/Language/locallang_csh_tx_taskmanagement_domain_model_task.xlf" date="2021-11-21T08:36:35Z" product-name="taskmanagement">
+		<header/>
+		<body>
+			<trans-unit id="title.description" resname="title.description">
+				<source>title</source>
+			</trans-unit>
+			<trans-unit id="done_at.description" resname="done_at.description">
+				<source>doneAt</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

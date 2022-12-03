@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:taskmanagement/Resources/Private/Language/locallang.xlf" date="2021-11-21T08:36:35Z"
+		product-name="taskmanagement">
+		<header />
+		<body>
+			<trans-unit id="tx_taskmanagement_domain_model_task">
+				<source>Task</source>
+			</trans-unit>
+			<trans-unit id="tx_taskmanagement_domain_model_task.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_taskmanagement_domain_model_task.done_at">
+				<source>Done At</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.openTasks">
+				<source>Open tasks</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.openTasks.createdBy">
+				<source>created by</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks">
+				<source>Done tasks (last six months)</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.closedBy">
+				<source>erledigt von</source>
+			</trans-unit>
+			<trans-unit id="taskmanagement.form.confirmDoneTask">
+				<source>Are you sure that the task has been completed?</source>
+			</trans-unit>
+			<trans-unit id="taskmanagement.form.confirmRemoveTask">
+				<source>Do you really want to delete the task?</source>
+			</trans-unit>
+			<trans-unit id="taskmanagement.form.doneTask">
+				<source>✓</source>
+			</trans-unit>
+			<trans-unit id="taskmanagement.form.doneTask.title">
+				<source>The task is done</source>
+			</trans-unit>
+			<trans-unit id="taskmanagement.form.removeTask">
+				<source>∅</source>
+			</trans-unit>
+			<trans-unit id="taskmanagement.form.removeTask.title">
+				<source>Remove this task</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.createTask">
+				<source>+</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.createTask.title">
+				<source>Create a new task</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.createTask.enableRepetition">
+				<source>Repeat the task after:</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.createTask.enableRepetition.description">
+				<source>After the task is completed, it will be put back on after the specified period of time.</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.createTask.repeatPeriodUnit.optionDays">
+				<source>Days</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.createTask.repeatPeriodUnit.optionWeeks">
+				<source>Weeks</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.createTask.repeatPeriodUnit.optionMonths">
+				<source>Months</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.form.createTask.repeatPeriodUnit.optionYears">
+				<source>Years</source>
+			</trans-unit>
+			<trans-unit id="taskmanagement.form.duplcateTask">
+				<source>♻</source>
+			</trans-unit>
+			<trans-unit id="taskmanagement.form.duplcateTask.title">
+				<source>Use this task as draft for a new task</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.01">
+				<source>January</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.02">
+				<source>February</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.03">
+				<source>March</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.04">
+				<source>April</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.05">
+				<source>May</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.06">
+				<source>June</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.07">
+				<source>July</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.08">
+				<source>August</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.09">
+				<source>September</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.10">
+				<source>October</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.11">
+				<source>November</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.doneTasks.month.12">
+				<source>December</source>
+			</trans-unit>
+
+
+			<trans-unit id="task.taskManagementInformer.title">
+				<source>Task management change informer</source>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.description">
+				<source>Informs the users if a task is repeated.</source>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.taskManagementStorageUid">
+				<source>Task storage uid:</source>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.invalidPage.taskManagementStorageUid">
+				<source>The specified task storage uid is not a valid page.</source>
+			</trans-unit>
+
+			<trans-unit id="task.taskManagementInformer.informFeUserGroupUids">
+				<source>User groups to be informed</source>
+			</trans-unit>
+
+			<trans-unit id="task.taskManagementInformer.senderName">
+				<source>Sender name (If you leave this field blank, a default name will be used)</source>
+			</trans-unit>
+
+			<trans-unit id="task.taskManagementInformer.error.invalidFrontendUserGroup.informFeUserGroupUids">
+				<source>The list contains the following invalid user group: %1 </source>
+			</trans-unit>
+
+			<trans-unit id="task.taskManagementInformer.infoMailTargetUrl">
+				<source>Target URL of the task list</source>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.invalidPage.taskManagementStorageUid">
+				<source>The URL is invalid.</source>
+			</trans-unit>
+
+			<trans-unit id="taskManagement.settings.title">
+				<source>Setting of the task management</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.settings.form.infoMailWhenRepeatedTaskAdded">
+				<source>Sends a notification email when repetitive tasks have been hung up again.</source>
+			</trans-unit>
+			<trans-unit id="taskManagement.settings.form.submit">
+				<source>Save</source>
+			</trans-unit>
+
+			<trans-unit id="taskManagementsettings.error.notLoggedIn">
+				<source>You are not logged in.</source>
+			</trans-unit>
+
+			<trans-unit id="task.taskManagementInformer.informMail.senderName">
+				<source>Informer service</source>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.informMail.subject">
+				<source>A repetitive task has been put on again</source>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.informMail.salutation">
+				<source>Hello %s</source>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.informMail.teaser">
+				<source>At least one repetitive task has been reissued. You can find the task under:</source>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.informMail.footer">
+				<source>Best regards,
+your webmaster
+				</source>
+			</trans-unit>
+
+
+
+		</body>
+	</file>
+</xliff>

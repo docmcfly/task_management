@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//WC//DTD XHTML . Strict//EN"
+	"http://www.w.org/TR/xhtml/DTD/xhtml-strict.dtd">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true" xmlns="http://www.w.org//xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+</head>
+<body>
+	<f:layout name="Default" />
+	<f:section name="content">
+		<script>
+			var confirmDoneTaskQuestion = '<f:translate key="taskmanagement.form.confirmDoneTask"/>';
+			var confirmRemoveTaskQuestion = '<f:translate key="taskmanagement.form.confirmRemoveTask"/>';
+
+			function repetionOnOff(cb) {
+				$('.repetition').prop('disabled', !cb.checked)
+			}
+		</script>
+		<div class="container">
+			<div class="row ">
+				<div class="col">
+					<h2>
+						<f:translate key="taskManagement.openTasks" />
+					</h2>
+				</div>
+			</div>
+			<f:for each="{openTasks}" as="task">
+				<div class="row mt-2">
+					<div class="col-8 col-lg-10 col-sm-12 form-check">
+						<p class="my-0">{task.title}</p>
+						<p class="small">
+							<f:translate key="taskManagement.openTasks.createdBy" />
+							{task.user.firstName} {task.user.lastName}
+							<f:if condition="{task.repeatPeriodCount} > 0">
+								<br>
+								<f:translate key="taskManagement.form.openTasks.repeatInformation" />&nbsp; {task.repeatPeriodCount}&nbsp;{task.translatedRepeatPeriodUnit} 
+							</f:if>
+						</p>
+					</div>
+					<div class="col-2 col-lg-1 col-sm-3 col-xs-4 form-check">
+						<f:form action="done" name="task" object="{task}" enctype="multipart/form-data">
+							<f:form.submit class="btn btn-primary btn-lg" style="width:2.5em;" value="{f:translate(key: 'taskmanagement.form.doneTask')}"
+								title="{f:translate(key: 'taskmanagement.form.doneTask.title')}" onclick="return window.confirm(confirmDoneTaskQuestion);"
+							/>
+						</f:form>
+					</div>
+					<div class="col-2 col-lg-1 col-sm-3 col-xs-4  form-check">
+						<f:form action="remove" name="task" object="{task}" enctype="multipart/form-data">
+							<f:form.submit class="btn btn-primary btn-lg" style="width:2.5em;" value="{f:translate(key: 'taskmanagement.form.removeTask')}"
+								title="{f:translate(key: 'taskmanagement.form.removeTask.title')}" onclick="return window.confirm(confirmRemoveTaskQuestion);"
+							/>
+						</f:form>
+					</div>
+				</div>
+			</f:for>
+			<f:form action="create" name="newTask" object="{newTask}" enctype="multipart/form-data">
+				<div class="row  mt-2">
+					<div class="col-10 col-lg-11 col-sm-12 form-check">
+						<f:form.textfield id="title" property="title" class="form-control" />
+						<f:if condition="{fullRenderType}">
+							<div style="margin-top: .4em">
+								<f:form.checkbox property="useRepetition" value="1" onclick="repetionOnOff(this)" />
+								<f:translate key="taskManagement.form.createTask.enableRepetition" />
+								<f:form.textfield id="title" property="repeatPeriodCount" required="true" type="number" class=" repetition" disabled="true" />
+								<f:form.select id="title" property="repeatPeriodUnit" class="repetition" disabled="true">
+									<f:form.select.option value="days">
+										<f:translate key="taskManagement.form.createTask.repeatPeriodUnit.optionDays" />
+									</f:form.select.option>
+									<f:form.select.option value="weeks">
+										<f:translate key="taskManagement.form.createTask.repeatPeriodUnit.optionWeeks" />
+									</f:form.select.option>
+									<f:form.select.option value="months">
+										<f:translate key="taskManagement.form.createTask.repeatPeriodUnit.optionMonths" />
+									</f:form.select.option>
+									<f:form.select.option value="years">
+										<f:translate key="taskManagement.form.createTask.repeatPeriodUnit.optionYears" />
+									</f:form.select.option>
+								</f:form.select>
+								<details> <f:translate key="taskManagement.form.createTask.enableRepetition.description" /> </details>
+								<br>
+							</div>
+						</f:if>
+					</div>
+					<div class="col-2 col-lg-1 col-sm-3 col-xs-4  form-check">
+						<f:form.submit class="btn btn-primary btn-lg" style="width:2.5em;" value="{f:translate(key: 'taskManagement.form.createTask')}"
+							title="{f:translate(key: 'taskManagement.form.createTask.title')}"
+						/>
+					</div>
+				</div>
+				<div class="row  mt-2">
+					<div class="col-12 col-lg-12 col-sm-12 form-check"></div>
+				</div>
+			</f:form>
+			<f:if condition="{doneTasks->f:count()} > 0">
+				<div class="row  mt-2">
+					<div class="col">
+						<h2>
+							<f:translate key="taskManagement.doneTasks" />
+						</h2>
+					</div>
+				</div>
+			</f:if>
+			<f:for each="{doneTasks}" key="month" as="tasks">
+				<div class="row ">
+					<div class="col">
+						<h3 class="bg-primary text-light" style="font-weight: bold; padding: 3px;">
+							<f:translate key="taskManagement.doneTasks.month.{month}" />
+						</h3>
+					</div>
+				</div>
+				<f:for each="{tasks}" as="task">
+					<div class="row  mt-1">
+						<div class="col-6 col-lg-7 col-sm-12">
+							<p class="my-0">{task.title}</p>
+							<p class="small">
+								<f:translate key="taskManagement.doneTasks.closedBy" />
+								{task.user.firstName} {task.user.lastName}
+								<f:if condition="{task.nextRepetition}">
+									<br>
+									<f:translate key="taskManagement.form.doneTasks.reIssueAt" />&nbsp; <f:format.date format="d.m.Y">{task.nextRepetition}</f:format.date>
+								</f:if>
+							</p>
+						</div>
+						<div class="col-4 col-lg-4 col-sm-3 col-xs-4">
+							<f:format.date format="d.m.Y  H:i">{task.doneAt}</f:format.date>
+						</div>
+						<div class="col-2 col-lg-1 col-sm-3 col-xs-4  form-check">
+							<f:form action="duplicate" name="task" object="{task}" enctype="multipart/form-data">
+								<f:form.submit class="btn btn-primary btn-lg" style="width:2.5em;" value="{f:translate(key: 'taskmanagement.form.duplcateTask')}"
+									title="{f:translate(key: 'taskmanagement.form.duplcateTask.title')}"
+								/>
+							</f:form>
+						</div>
+					</div>
+				</f:for>
+			</f:for>
+		</div>
+	</f:section>
+</body>
+</html>

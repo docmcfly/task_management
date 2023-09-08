@@ -17,7 +17,7 @@ use Cylancer\TaskManagement\Domain\Repository\FrontendUserGroupRepository;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2022 C. Gogolin <service@cylancer.net>
+ * (c) 2023 C. Gogolin <service@cylancer.net>
  *
  * @package Cylancer\TaskManagement\Service
  */
@@ -30,7 +30,7 @@ class FrontendUserService implements SingletonInterface
     /** @var FrontendUserGroupRepository */
     private $frontendUserGroupRepository = null;
     
-    /**
+   /**
      * 
      * @param FrontendUserRepository $frontendUserRepository
      * @param FrontendUserGroupRepository $frontendUserGroupRepository
@@ -42,11 +42,9 @@ class FrontendUserService implements SingletonInterface
     }
 
     /**
-     *
-     * @param Object $obj
      * @return int
      */
-    public static function getUid(Object $object): int
+    public static function getUid($object): int
     {
         return $object->getUid();
     }
@@ -55,10 +53,11 @@ class FrontendUserService implements SingletonInterface
      *
      * @return FrontendUser Returns the current frontend user
      */
-    public function getCurrentUser(): FrontendUser
+    public function getCurrentUser():? FrontendUser
     {
+        debug($this->getCurrentUserUid());
         if (! $this->isLogged()) {
-            return false;
+            return null;
         }
         return $this->frontendUserRepository->findByUid($this->getCurrentUserUid());
     }
@@ -87,54 +86,7 @@ class FrontendUserService implements SingletonInterface
         return $context->getPropertyFromAspect('frontend.user', 'isLoggedIn');
     }
 
-    /**
-     *
-     * @param FrontendUserGroup $userGroup
-     * @param integer $fegid
-     * @param array $loopProtect
-     * @return boolean
-     */
-    public function contains($userGroup, $feugid, &$loopProtect = array()): bool
-    {
-        if ($userGroup->getUid() == $feugid) {
-            return true;
-        } else {
-            if (! in_array($userGroup->getUid(), $loopProtect)) {
-                $loopProtect[] = $userGroup->getUid();
-                foreach ($userGroup->getSubgroup() as $sg) {
-                    if ($this->contains($sg, $feugid, $loopProtect)) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-    }
-
-    /**
-     *
-     * @param FrontendUserGroup $userGroup
-     * @param integer $fegid
-     * @param array $loopProtect
-     * @return boolean
-     */
-    public function getAllGroups($userGroup, $return = array(), &$loopProtect = array()): bool
-    {
-        $return = array();
-        if ($userGroup->getUid() == $feugid) {
-            return true;
-        } else {
-            if (! in_array($userGroup->getUid(), $loopProtect)) {
-                $loopProtect[] = $userGroup->getUid();
-                foreach ($userGroup->getSubgroup() as $sg) {
-                    if ($this->contains($sg, $feugid, $loopProtect)) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-    }
+   
 
     /**
      *
@@ -146,58 +98,7 @@ class FrontendUserService implements SingletonInterface
         return GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
     }
 
-    /**
-     * Returns an array with all subgroups of the frontend user to the root of groups...
-     *
-     * @param FrontendUser $frontendUser
-     * @return array
-     */
-    public function getUserSubGroups(FrontendUser $frontendUser): array
-    {
-        $return = [];
-        foreach ($frontendUser->getUsergroup() as $ug) {
-            $return = array_merge($return, $this->_getSubgroups($ug, $return));
-        }
-        return $return;
-    }
-
-    /**
-     * Returns an array with all subgroups of the frontend user group to the root of groups...
-     *
-     * @param FrontendUserGroup $frontendUserGroup
-     * @return array
-     */
-    public function getSubGroups(FrontendUserGroup $frontendUserGroup): array
-    {
-        return $this->_getSubgroups($frontendUserGroup);
-    }
-
-    private function _getSubgroups(FrontendUserGroup $frontendUserGroup, array &$return = []): array
-    {
-        $return[] = $frontendUserGroup->getUid();
-        foreach ($frontendUserGroup->getSubgroup() as $ug) {
-            $uid = $ug->getUid();
-            if (! in_array($uid, $return)) {
-                $return = array_unique(array_merge($return, $this->_getSubgroups($ug, $return)));
-            }
-        }
-        return $return;
-    }
-
-    /**
-     * Returns all groups from the frontend user to all his leafs in the hierachy tree...
-     *
-     * @param FrontendUser $frontendUser
-     * @return array
-     */
-    public function getUserTopGroups(FrontendUser $frontendUser): array
-    {
-        $return = [];
-        foreach ($frontendUser->getUsergroup() as $ug) {
-            $return = array_merge($return, $this->_getTopGroups($ug->getUid(), $return));
-        }
-        return $return;
-    }
+  
 
     /**
      * Returns all groups from the frontend user group to all his leafs in the hierachy tree...

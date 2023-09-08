@@ -103,6 +103,10 @@
 				<source>+</source>
 				<target state="tanslated">+</target>
 			</trans-unit>
+			<trans-unit id="taskManagement.form.createTask.title">
+				<source>Create a new task</source>
+				<target state="tanslated">Neue Aufgabe anlegen</target>
+			</trans-unit>
 			<trans-unit id="taskManagement.form.createTask.enableRepetition">
 				<source>Re-issue the task after:</source>
 				<target state="tanslated">Wiederauflage der Aufgabe nach:</target>
@@ -271,5 +275,3 @@ Dein Webmaster</target>
 		</body>
 	</file>
 </xliff>
-
-

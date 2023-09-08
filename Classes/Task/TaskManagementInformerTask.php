@@ -16,6 +16,7 @@ use Cylancer\TaskManagement\Domain\Repository\FrontendUserGroupRepository;
 use Cylancer\TaskManagement\Domain\Model\FrontendUser;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use Cylancer\TaskManagement\Service\FrontendUserService;
+use TYPO3\CMS\Core\Utility\MailUtility;
 
 class TaskManagementInformerTask extends AbstractTask
 {
@@ -33,13 +34,13 @@ class TaskManagementInformerTask extends AbstractTask
     /** @var int */
     public $taskManagementStorageUid = 0;
 
-    /** @var String */
+    /** @var string */
     public $informFeUserGroupUids = '';
 
-    /** @var String */
+    /** @var string */
     public $infoMailTargetUrl = 'https://cylancer.net';
 
-    /** @var String */
+    /** @var string */
     public $senderName = '';
 
     // ------------------------------------------------------
@@ -99,9 +100,9 @@ class TaskManagementInformerTask extends AbstractTask
         $s = $qb->select('uid')
             ->from('pages')
             ->where($qb->expr()
-            ->eq('module', $qb->createNamedParameter('fe_users')))
+                ->eq('module', $qb->createNamedParameter('fe_users')))
             ->execute();
-        while ($row = $s->fetch()) {
+        while ($row = $s->fetchAllAssociative()) {
             $feUserStorageUids[] = $row['uid'];
         }
 
@@ -132,9 +133,10 @@ class TaskManagementInformerTask extends AbstractTask
         $this->emailSendService = GeneralUtility::makeInstance(EmailSendService::class);
 
         if (empty($this->senderName)) {
-            $this->senderName = LocalizationUtility::translate( //
-            'task.taskManagementInformer.informMail.senderName', //
-            TaskManagementInformerTask::EXTENSION_NAME);
+            $this->senderName = LocalizationUtility::translate(
+                'task.taskManagementInformer.informMail.senderName',
+                TaskManagementInformerTask::EXTENSION_NAME
+            );
         }
     }
 
@@ -182,10 +184,10 @@ class TaskManagementInformerTask extends AbstractTask
 
     /**
      *
-     * @param String $url
+     * @param string $url
      * @return bool
      */
-    private function isUrlValid(String $url): bool
+    private function isUrlValid(string $url): bool
     {
         return is_string($url) && strlen($url) > 5 && filter_var($url, FILTER_VALIDATE_URL);
     }
@@ -236,7 +238,6 @@ class TaskManagementInformerTask extends AbstractTask
     private function sendInfoMails()
     {
         foreach ($this->frontendUserService->getInformFrontendUser($this->informFeUserGroupUids) as $userUid) {
-            debug($userUid);
             $this->sendInfoMail($this->frontendUserRepository->findByUid($userUid));
         }
     }
@@ -248,9 +249,9 @@ class TaskManagementInformerTask extends AbstractTask
                 $frontendUser->getEmail() => $frontendUser->getFirstName() . ' ' . $frontendUser->getLastName()
             ];
             $sender = [
-                \TYPO3\CMS\Core\Utility\MailUtility::getSystemFromAddress() => $this->senderName
+                MailUtility::getSystemFromAddress() => $this->senderName
             ];
-            $subject = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('task.taskManagementInformer.informMail.senderName', TaskManagementInformerTask::EXTENSION_NAME);
+            $subject = LocalizationUtility::translate('task.taskManagementInformer.informMail.senderName', TaskManagementInformerTask::EXTENSION_NAME);
 
             $data = [
                 'user' => $frontendUser,
@@ -264,20 +265,20 @@ class TaskManagementInformerTask extends AbstractTask
     /**
      * This method returns the sleep duration as additional information
      *
-     * @return String Information to display
+     * @return string Information to display
      */
-    public function getAdditionalInformation(): String
+    public function getAdditionalInformation(): string
     {
         return 'Tasks storage uid: ' . $this->taskManagementStorageUid . ' / Frontend user group: ' . $this->informFeUserGroupUids;
     }
 
     /**
      *
-     * @param String $key
+     * @param string $key
      * @throws \Exception
-     * @return number|String
+     * @return number|string
      */
-    public function get(String $key)
+    public function get(string $key)
     {
         switch ($key) {
             case TaskManagementInformerTask::TASK_MANAGEMENT_STORAGE_UID:
@@ -295,11 +296,11 @@ class TaskManagementInformerTask extends AbstractTask
 
     /**
      *
-     * @param String $key
-     * @param String|number $value
+     * @param string $key
+     * @param string|number $value
      * @throws \Exception
      */
-    public function set(String $key, $value)
+    public function set(string $key, $value)
     {
         switch ($key) {
             case TaskManagementInformerTask::TASK_MANAGEMENT_STORAGE_UID:
@@ -319,5 +320,3 @@ class TaskManagementInformerTask extends AbstractTask
         }
     }
 }
-
-

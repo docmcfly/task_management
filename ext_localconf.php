@@ -5,26 +5,26 @@ use Cylancer\TaskManagement\Controller\SettingsController;
 defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(function () {
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin( //
-    'Cylancer.TaskManagement', //
-    'TaskBoard', //
-    [
-        TaskBoardController::class => 'show, create, done, remove, duplicate'
-    ], 
-        // non-cacheable actions
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        'TaskManagement',
+        'TaskBoard',
         [
             TaskBoardController::class => 'show, create, done, remove, duplicate'
-        ]);
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin( //
-    'Cylancer.TaskManagement', //
-    'Settings', //
-    [
-        SettingsController::class => 'show, save'
-    ], 
-        // non-cacheable actions
+        ],
         [
-            SettingsController::class => 'show,save'
-        ]);
+            TaskBoardController::class => 'show, create, done, remove, duplicate'
+        ]
+    );
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        'TaskManagement',
+        'Settings',
+        [
+            SettingsController::class => 'show, save'
+        ],
+        [
+            SettingsController::class => 'show, save'
+        ]
+    );
 
     // wizards
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('mod {
@@ -69,8 +69,3 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\Cylancer\TaskMa
     'description' => 'LLL:EXT:task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.description',
     'additionalFields' => \Cylancer\TaskManagement\Task\TaskManagementInformerAdditionalFieldProvider::class
 ];
-    
-
-    
-
-

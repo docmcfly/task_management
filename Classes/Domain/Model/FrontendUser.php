@@ -115,26 +115,6 @@ class FrontendUser extends AbstractEntity
         $this->usergroup = $this->usergroup ?? new ObjectStorage();
     }
 
-    /**
-     * Returns the allowDisplayImagePublic
-     *
-     * @return bool $allowDisplayImagePublic
-     */
-    public function getCurrentlyOffDuty(): bool
-    {
-        return $this->currentlyOffDuty;
-    }
-
-    /**
-     * Sets the currentlyOffDuty
-     *
-     * @param bool $currentlyOffDuty
-     * @return void
-     */
-    public function setCurrentlyOffDuty(bool $currentlyOffDuty): void
-    {
-        $this->currentlyOffDuty = $currentlyOffDuty;
-    }
 
     /**
      * Sets the usergroups.
@@ -180,25 +160,6 @@ class FrontendUser extends AbstractEntity
         return $this->usergroup;
     }
 
-    /**
-     * Sets the telephone value
-     *
-     * @param string $telephone
-     */
-    public function setTelephone($telephone)
-    {
-        $this->telephone = $telephone;
-    }
-
-    /**
-     * Returns the telephone value
-     *
-     * @return string
-     */
-    public function getTelephone()
-    {
-        return $this->telephone;
-    }
 
     /**
      * Sets the username value
@@ -281,26 +242,6 @@ class FrontendUser extends AbstractEntity
     }
 
     /**
-     * Sets the password value
-     *
-     * @param string $password
-     */
-    public function setPassword(String $password): String
-    {
-        $this->password = $password;
-    }
-
-    /**
-     * Returns the password value
-     *
-     * @return string
-     */
-    public function getPassword(): String
-    {
-        return $this->password;
-    }
-
-    /**
      * Sets the email value
      *
      * @param string $email
@@ -324,83 +265,6 @@ class FrontendUser extends AbstractEntity
      *
      * @return boolean
      */
-    public function getInfoMailWhenPersonalDutyRosterChanged(): bool
-    {
-        return $this->infoMailWhenPersonalDutyRosterChanged;
-    }
-
-    /**
-     *
-     * @param boolean $b
-     */
-    public function setInfoMailWhenPersonalDutyRosterChanged(bool $b): void
-    {
-        $this->infoMailWhenPersonalDutyRosterChanged = $b;
-    }
-
-    /**
-     *
-     * @param FrontendUserGroup $hiddenTargetGroup
-     * @return void
-     */
-    public function addHiddenPersonalDutyRosterGroups(FrontendUserGroup $hiddenPersonalDutyRosterGroup): void
-    {
-        $this->hiddenPersonalDutyRosterGroups->attach($hiddenPersonalDutyRosterGroup);
-    }
-
-    /**
-     *
-     * @param FrontendUserGroup $hiddenTargetGroupToRemove
-     * @return void
-     */
-    public function removeHiddenPersonalDutyRosterGroups(FrontendUserGroup $hiddenPersonalDutyRosterGroup): void
-    {
-        $this->hiddenPersonalDutyRosterGroups->detach($hiddenPersonalDutyRosterGroup);
-    }
-
-    /**
-     * Returns the hiddenTargetGroups
-     *
-     * @return ObjectStorage<FrontendUserGroup> $hiddenTargetGroups
-     */
-    public function getHiddenPersonalDutyRosterGroups(): ObjectStorage
-    {
-        return $this->hiddenPersonalDutyRosterGroups;
-    }
-
-    /**
-     * Sets the hiddenTargetGroups
-     *
-     * @param ObjectStorage<FrontendUserGroup> $hiddenTargetGroups
-     * @return void
-     */
-    public function setHiddenPersonalDutyRosterGroups(ObjectStorage $hiddenPersonalDutyRosterGroups): void
-    {
-        $this->hiddenPersonalDutyRosterGroups = $hiddenPersonalDutyRosterGroups;
-    }
-
-    /**
-     *
-     * @return boolean
-     */
-    public function getApplyPlanningData(): bool
-    {
-        return $this->applyPlanningData;
-    }
-
-    /**
-     *
-     * @param boolean $b
-     */
-    public function setApplyPlanningData(bool $b): void
-    {
-        $this->applyPlanningData = $b;
-    }
-
-    /**
-     *
-     * @return boolean
-     */
     public function getInfoMailWhenRepeatedTaskAdded(): bool
     {
         return $this->infoMailWhenRepeatedTaskAdded;
@@ -416,24 +280,6 @@ class FrontendUser extends AbstractEntity
         $this->infoMailWhenRepeatedTaskAdded = $b;
     }
 
-    /**
-     *
-     * @return array
-     */
-    public function getAllSortedUserGroups(): array
-    {
-        $return = array();
-        $duplicateProtection = array();
-
-        /** @var FrontendUserGroup $frontendUserGroup **/
-        foreach ($this->getUsergroup() as $frontendUserGroup) {
-            $return[$frontendUserGroup->getTitle()] = $frontendUserGroup;
-            $duplicateProtection[] = $frontendUserGroup->getUid();
-            $return = array_merge($return, $this->getSubUserGroups($frontendUserGroup, $duplicateProtection));
-        }
-        ksort($return);
-        return array_values($return);
-    }
 
     /**
      *

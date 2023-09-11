@@ -48,6 +48,7 @@ class SettingsController extends ActionController
     {
         /** @var FrontendUser $frontendUser  */
         $frontendUser = $this->frontendUserService->getCurrentUser();
+        debug($frontendUser);
         if ($frontendUser != null) {
             $s = new Settings();
             $s->setInfoMailWhenRepeatedTaskAdded($frontendUser->getInfoMailWhenRepeatedTaskAdded());

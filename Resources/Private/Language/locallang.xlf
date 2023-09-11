@@ -23,7 +23,7 @@
 				<source>Done tasks (last six months)</source>
 			</trans-unit>
 			<trans-unit id="taskManagement.doneTasks.closedBy">
-				<source>erledigt von</source>
+				<source>closed by</source>
 			</trans-unit>
 			<trans-unit id="taskmanagement.form.confirmDoneTask">
 				<source>Are you sure that the task has been completed?</source>

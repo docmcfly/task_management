@@ -1,26 +1,23 @@
 {
-	"name" : "cylancer/taskmanagement",
+	"name" : "cylanver/taskmanagement",
 	"type" : "typo3-cms-extension",
-	"description" : "Is a simple front end task management board.",
 	"license" : "GPL-2.0-or-later",
+	"description" : "A small tast management extension for TYPO3",
+	"authors" : [{
+		"name" : "Clemens Gogolin",
+		"role" : "Developer"
+	}, {
+		"name" : "Clemens Gogolin",
+		"role" : "Product Manager"
+	}
+	],
 	"require" : {
 		"typo3/cms-core" : "^11.5"
 	},
 	"autoload" : {
 		"psr-4" : {
-			"Cylancer\\TaskManagement\\" : "Classes"
+			"Cylancer\\TaskManagement\\" : "Classes/"
 		}
-	},
-	"authors" : [{
-			"name" : "Clemens Gogolin",
-			"email" : "service@cylancer.net",
-			"role" : "developer",
-			"homepage" : "https://github.com/docmcfly/task_management"
-		}
-	],
-	"support" : {
-		"issues" : "https://github.com/docmcfly/task_management/issues",
-		"source" : "https://github.com/docmcfly/task_management"
 	},
 	"extra" : {
 		"typo3/cms" : {

@@ -20,7 +20,7 @@ class TaskManagementInformerAdditionalFieldProvider extends AbstractAdditionalFi
      * @param array $taskInfo
      * @param TaskManagementInformerTask|null $task
      * @param SchedulerModuleController $schedulerModule
-     * @param String $key
+     * @param string $key
      * @param array $additionalFields
      * @return void
      */
@@ -42,7 +42,7 @@ class TaskManagementInformerAdditionalFieldProvider extends AbstractAdditionalFi
      * @param array $taskInfo
      * @param TaskManagementInformerTask|null $task
      * @param SchedulerModuleController $schedulerModule
-     * @param String $key
+     * @param string $key
      * @param array $additionalFields
      * @return void
      */
@@ -80,7 +80,7 @@ class TaskManagementInformerAdditionalFieldProvider extends AbstractAdditionalFi
      * @param array $taskInfo
      * @param TaskManagementInformerTask|null $task
      * @param SchedulerModuleController $schedulerModule
-     * @param String $key
+     * @param string $key
      * @param array $additionalFields
      * @return void
      */
@@ -118,7 +118,7 @@ class TaskManagementInformerAdditionalFieldProvider extends AbstractAdditionalFi
      * @param array $taskInfo
      * @param TaskManagementInformerTask|null $task
      * @param SchedulerModuleController $schedulerModule
-     * @param String $key
+     * @param string $key
      * @param array $additionalFields
      * @return void
      */

@@ -102,7 +102,7 @@ class TaskManagementInformerTask extends AbstractTask
             ->where($qb->expr()
                 ->eq('module', $qb->createNamedParameter('fe_users')))
             ->execute();
-        while ($row = $s->fetchAllAssociative()) {
+        while ($row = $s->fetchAssociative()) {
             $feUserStorageUids[] = $row['uid'];
         }
 

@@ -7,7 +7,7 @@ $EM_CONF[$_EXTKEY] = [
     'author_email' => 'service@cylancer.net',
     'state' => 'beta',
     'clearCacheOnLoad' => 0,
-    'version' => '2.2.3',
+    'version' => '2.2.4',
     'constraints' => [
         'depends' => [
             'typo3' => '10.4.0-11.5.99',
@@ -20,6 +20,7 @@ $EM_CONF[$_EXTKEY] = [
 
 
 /* CHANGLOG: 
+      2.2.4 :: Fix the sql query in the task management task.
       2.2.3 :: Fix deletion of tasks.
       2.2.2 :: Fix the missing jquery and a translation
       2.2.1 :: Fix the plugin registration/configuration.

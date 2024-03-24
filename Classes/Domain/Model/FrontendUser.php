@@ -6,12 +6,12 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  *
- * This file is part of the "task management" Extension for TYPO3 CMS.
+ * This file is part of the "Task management" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2022 Clemens Gogolin <service@cylancer.net>
+ * (c) 2024 C.Gogolin <service@cylancer.net>
  *
  * @package Cylancer\TaskManagement\Domain\Model
  */
@@ -259,6 +259,7 @@ class FrontendUser extends AbstractEntity
     private function getSubUserGroups(FrontendUserGroup $frontendUserGroup, array &$duplicateProtection): array
     {
         $return = array();
+        /** @var FrontendUserGroup $sg */
         foreach ($frontendUserGroup->getSubgroup() as $sg) {
             if (! in_array($sg->getUid(), $duplicateProtection)) {
                 $duplicateProtection[] = $sg->getUid();

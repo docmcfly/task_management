@@ -7,10 +7,10 @@ $EM_CONF[$_EXTKEY] = [
     'author_email' => 'service@cylancer.net',
     'state' => 'beta',
     'clearCacheOnLoad' => 0,
-    'version' => '2.2.4',
+    'version' => '3.0.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '10.4.0-11.5.99',
+            'typo3' => '12.4.0-12.4.99',
             'bootstrap_package' => '11.0.00-13.9.99'
         ],
         'conflicts' => [],
@@ -20,6 +20,7 @@ $EM_CONF[$_EXTKEY] = [
 
 
 /* CHANGLOG: 
+      3.0.0 :: Update to TYPO3 12.4 and bootstrap 13.0
       2.2.4 :: Fix the sql query in the task management task.
       2.2.3 :: Fix deletion of tasks.
       2.2.2 :: Fix the missing jquery and a translation

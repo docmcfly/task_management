@@ -3,9 +3,9 @@ namespace Cylancer\TaskManagement\Controller;
 
 use Cylancer\TaskManagement\Domain\Model\Task;
 use Cylancer\TaskManagement\Domain\Model\CreationTask;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use Cylancer\TaskManagement\Domain\Repository\TaskRepository;
 use Cylancer\TaskManagement\Service\FrontendUserService;
+use Psr\Http\Message\ResponseInterface;
 
 // use Cylancer\TaskManagement\Domain\Model\Task;
 
@@ -15,7 +15,7 @@ use Cylancer\TaskManagement\Service\FrontendUserService;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2020 C. Gogolin <service@cylancer.net>
+ * (c) 2024 C.Gogolin <service@cylancer.net>
  * C. Gogolin <service@cylancer.net>
  *
  * @package Cylancer\TaskManagement\Controller
@@ -44,7 +44,10 @@ class TaskBoardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         $this->now = time();
     }
 
-    public function showAction(): void
+    /**
+     * @return ResponseInterface
+     */
+    public function showAction(): ResponseInterface
     {
         $doneTasks = array();
         foreach ($this->taskRepository->findDoneTasks() as $task) {
@@ -54,10 +57,10 @@ class TaskBoardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         $this->view->assign('doneTasks', $doneTasks);
         $this->view->assign('newTask', new CreationTask());
         $this->view->assign('fullRenderType', $this->settings['renderType'] == 'full');
+        return $this->htmlResponse();
     }
 
     /**
-     *
      * @var \DateTime $return
      */
     private function createNow(): \DateTime
@@ -68,10 +71,10 @@ class TaskBoardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
     }
 
     /**
-     *
      * @param Task $currentUserMessage
+     * @return ResponseInterface
      */
-    public function doneAction(Task $task): void
+    public function doneAction(Task $task): ResponseInterface
     {
         /** @var Task $task */
         $task = $this->taskRepository->findByUid($task->getUid());
@@ -83,16 +86,17 @@ class TaskBoardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
                     ->add(\DateInterval::createFromDateString($task->getRepeatPeriodCount() . ' ' . $task->getRepeatPeriodUnit())));
             }
             $this->taskRepository->update($task);
+
         }
-        $this->redirect("show");
+        return $this->redirect("show");
     }
 
     /**
-     *
      * @param CreationTask $newTask
      * @param Task $newTask
+     * @return ResponseInterface
      */
-    public function createAction(CreationTask $newTask): void
+    public function createAction(CreationTask $newTask): ResponseInterface
     {
         if (strlen($newTask->getTitle()) > 0) {
             /** @var Task $task */
@@ -100,7 +104,7 @@ class TaskBoardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
             $task->setTitle($newTask->getTitle());
             $task->setDoneAt(null);
             $task->setUser($this->frontendUserService->getCurrentUser());
-            if (! $newTask->getUseRepetition()) {
+            if (!$newTask->getUseRepetition()) {
                 $task->setRepeatPeriodCount(0);
                 $task->setRepeatPeriodUnit('');
             } else {
@@ -111,26 +115,26 @@ class TaskBoardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
                 $this->taskRepository->add($task);
             }
         }
-        $this->redirect("show");
+        return $this->redirect("show");
     }
 
     /**
-     *
      * @param Task $task
+     * @return ResponseInterface
      */
-    public function removeAction(Task $task): void
+    public function removeAction(Task $task): ResponseInterface
     {
         if ($task->getDoneAt() == null) {
             $this->taskRepository->remove($task);
         }
-        $this->redirect("show");
+        return $this->redirect("show");
     }
 
     /**
-     *
      * @param Task $task
+     * @return ResponseInterface
      */
-    public function duplicateAction(Task $task): void
+    public function duplicateAction(Task $task): ResponseInterface
     {
         /** @var CreationTask $newTask */
         $newTask = new CreationTask();
@@ -140,6 +144,6 @@ class TaskBoardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
             $newTask->setRepeatPeriodCount($task->getRepeatPeriodCount());
             $newTask->setRepeatPeriodUnit($task->getRepeatPeriodUnit());
         }
-        $this->createAction($newTask);
+        return $this->createAction($newTask);
     }
 }

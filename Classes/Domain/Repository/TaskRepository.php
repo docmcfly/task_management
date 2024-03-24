@@ -3,12 +3,12 @@ declare(strict_types = 1);
 namespace Cylancer\TaskManagement\Domain\Repository;
 
 /**
- * This file is part of the "Task management" extension for TYPO3 CMS.
+ * This file is part of the "Task management" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2022 Clemens Gogolin <service@cylancer.net>
+ * (c) 2024 C.Gogolin <service@cylancer.net>
  *
  * @package Cylancer\TaskManagement\Domain\Repository
  */
@@ -42,7 +42,8 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $query->matching( //
         $query->logicalAnd( //
         $query->logicalNot($query->equals('doneAt', 0)), //
-        $query->logicalNot($query->equals('nextRepetition', 0)), $query->lessThanOrEqual('nextRepetition', $today)));
+        $query->logicalNot($query->equals('nextRepetition', 0)), 
+        $query->lessThanOrEqual('nextRepetition', $today)));
 
         return $query->execute();
     }

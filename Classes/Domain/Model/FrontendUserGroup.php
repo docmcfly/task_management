@@ -11,12 +11,20 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2022 Clemens Gogolin <service@cylancer.net>
+ * (c) 2024 C.Gogolin <service@cylancer.net>
  *
  * @package Cylancer\TaskManagement\Domain\Model
  */
 class FrontendUserGroup extends AbstractEntity
 {
+
+    /**
+     *
+     * @var string
+     */
+    protected $title = '';
+
+    
 
     /**
      *
@@ -76,4 +84,22 @@ class FrontendUserGroup extends AbstractEntity
     {
         return $this->subgroup;
     }
+
+	/**
+	 * 
+	 * @return string
+	 */
+	public function getTitle() {
+		return $this->title;
+	}
+	
+	/**
+	 * 
+	 * @param string $title 
+	 * @return self
+	 */
+	public function setTitle($title): self {
+		$this->title = $title;
+		return $this;
+	}
 }

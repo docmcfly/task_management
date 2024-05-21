@@ -17,7 +17,7 @@ use Cylancer\TaskManagement\Domain\Repository\FrontendUserGroupRepository;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2023 C. Gogolin <service@cylancer.net>
+ * (c) 2024 C.Gogolin <service@cylancer.net>
  *
  * @package Cylancer\TaskManagement\Service
  */
@@ -26,17 +26,19 @@ class FrontendUserService implements SingletonInterface
 
     /** @var FrontendUserRepository   */
     private $frontendUserRepository = null;
-    
+
     /** @var FrontendUserGroupRepository */
     private $frontendUserGroupRepository = null;
-    
-   /**
+
+    /**
      * 
      * @param FrontendUserRepository $frontendUserRepository
      * @param FrontendUserGroupRepository $frontendUserGroupRepository
      */
-    public function __construct(FrontendUserRepository $frontendUserRepository, FrontendUserGroupRepository $frontendUserGroupRepository)
-    {
+    public function __construct(
+        FrontendUserRepository $frontendUserRepository,
+        FrontendUserGroupRepository $frontendUserGroupRepository
+    ) {
         $this->frontendUserRepository = $frontendUserRepository;
         $this->frontendUserGroupRepository = $frontendUserGroupRepository;
     }
@@ -53,10 +55,9 @@ class FrontendUserService implements SingletonInterface
      *
      * @return FrontendUser Returns the current frontend user
      */
-    public function getCurrentUser():? FrontendUser
+    public function getCurrentUser(): ?FrontendUser
     {
-        debug($this->getCurrentUserUid());
-        if (! $this->isLogged()) {
+        if (!$this->isLogged()) {
             return null;
         }
         return $this->frontendUserRepository->findByUid($this->getCurrentUserUid());
@@ -68,7 +69,7 @@ class FrontendUserService implements SingletonInterface
      */
     public function getCurrentUserUid(): int
     {
-        if (! $this->isLogged()) {
+        if (!$this->isLogged()) {
             return false;
         }
         $context = GeneralUtility::makeInstance(Context::class);
@@ -86,19 +87,19 @@ class FrontendUserService implements SingletonInterface
         return $context->getPropertyFromAspect('frontend.user', 'isLoggedIn');
     }
 
-   
+
 
     /**
      *
      * @param string $table
      * @return QueryBuilder
      */
-    protected function getQueryBuilder(String $table): QueryBuilder
+    protected function getQueryBuilder(string $table): QueryBuilder
     {
         return GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
     }
 
-  
+
 
     /**
      * Returns all groups from the frontend user group to all his leafs in the hierachy tree...
@@ -118,11 +119,11 @@ class FrontendUserService implements SingletonInterface
         $s = $qb->select('fe_groups.uid')
             ->from('fe_groups')
             ->where($qb->expr()
-            ->inSet('subgroup', $ug))
-            ->execute();
-        while ($row = $s->fetch()) {
+                ->inSet('subgroup', $ug))
+            ->executeQuery();
+        while ($row = $s->fetchAssociative()) {
             $uid = intVal($row['uid']);
-            if (! in_array($uid, $return)) {
+            if (!in_array($uid, $return)) {
                 $return = array_unique(array_merge($return, $this->_getTopGroups($uid, $return)));
             }
         }
@@ -140,7 +141,6 @@ class FrontendUserService implements SingletonInterface
          * @var FrontendUserGroup $frontendUserGroup
          */
         foreach ($frontendUserGroupUids as $guid) {
-            // debug($guid);
             $_frontendUserGroupUids = array_merge($frontendUserGroupUids, $this->getTopGroups($this->frontendUserGroupRepository->findByUid($guid)));
         }
         $_frontendUserGroupUids = array_unique($_frontendUserGroupUids);
@@ -153,9 +153,9 @@ class FrontendUserService implements SingletonInterface
         $qb->andWhere($qb->expr()
             ->eq('info_mail_when_repeated_task_added', 1));
         // debug($qb->getSQL());
-        $s = $qb->execute();
+        $s = $qb->executeQuery();
         $return = array();
-        while ($row = $s->fetch()) {
+        while ($row = $s->fetchAssociative()) {
             $return[] = intVal($row['uid']);
         }
         return $return;

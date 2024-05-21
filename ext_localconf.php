@@ -2,7 +2,7 @@
 use Cylancer\TaskManagement\Controller\TaskBoardController;
 use Cylancer\TaskManagement\Controller\SettingsController;
 
-defined('TYPO3_MODE') || die('Access denied.');
+defined('TYPO3') || die('Access denied.');
 
 call_user_func(function () {
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -69,3 +69,9 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\Cylancer\TaskMa
     'description' => 'LLL:EXT:task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.description',
     'additionalFields' => \Cylancer\TaskManagement\Task\TaskManagementInformerAdditionalFieldProvider::class
 ];
+
+// E-Mail-Templates
+$GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths']['task_management']    = 'EXT:task_management/Resources/Private/Templates/TaskManagementInfoMail/';
+$GLOBALS['TYPO3_CONF_VARS']['MAIL']['layoutRootPaths']['task_management']    = 'EXT:task_management/Resources/Private/Layouts/TaskManagementInfoMail/';
+$GLOBALS['TYPO3_CONF_VARS']['MAIL']['partialRootPaths']['task_management']    = 'EXT:task_management/Resources/Private/Partials/TaskManagementInfoMail/';
+

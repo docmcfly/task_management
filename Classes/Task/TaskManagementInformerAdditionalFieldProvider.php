@@ -259,7 +259,6 @@ class TaskManagementInformerAdditionalFieldProvider extends AbstractAdditionalFi
     {
         $result = true;
 
-        /** @var TaskManagementInformerTask $task */
         try {
             GeneralUtility::makeInstance(SiteFinder::class)->getSiteByIdentifier($submittedData[$key]);
         } catch (\Exception $e) {

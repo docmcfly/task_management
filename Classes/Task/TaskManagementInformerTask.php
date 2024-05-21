@@ -161,7 +161,7 @@ class TaskManagementInformerTask extends AbstractTask
     }
 
 
-     /**
+    /**
      * This method returns the sleep duration as additional information
      *
      * @return string Information to display
@@ -211,14 +211,14 @@ class TaskManagementInformerTask extends AbstractTask
     }
 
 
- /**
+    /**
      *
      * @return boolean
      */
-    private function isSiteIdentifierValid(String $siteIdentifier):bool
+    private function isSiteIdentifierValid(string $siteIdentifier): bool
     {
-        try{
-             GeneralUtility::makeInstance(SiteFinder::class)->getSiteByIdentifier($siteIdentifier);
+        try {
+            GeneralUtility::makeInstance(SiteFinder::class)->getSiteByIdentifier($siteIdentifier);
         } catch (\Exception $e) {
             return false;
         }
@@ -257,7 +257,7 @@ class TaskManagementInformerTask extends AbstractTask
                 $this->taskRepository->update($task);
                 $sendInfoMail = true;
             }
-//            $this->persistenceManager->persistAll();
+            //            $this->persistenceManager->persistAll();
             if ($sendInfoMail) {
                 $this->sendInfoMails();
             }
@@ -283,7 +283,7 @@ class TaskManagementInformerTask extends AbstractTask
             $fluidEmail
                 ->setRequest($this->createRequest($this->siteIdentifier))
                 ->to(new Address($frontendUser->getEmail(), $frontendUser->getFirstName() . ' ' . $frontendUser->getLastName()))
-                ->from(new Address(MailUtility::getSystemFromAddress(),  $this->senderName))
+                ->from(new Address(MailUtility::getSystemFromAddress(), $this->senderName))
                 ->subject(LocalizationUtility::translate('task.taskManagementInformer.informMail.senderName', TaskManagementInformerTask::EXTENSION_NAME))
                 ->format(FluidEmail::FORMAT_BOTH) // send HTML and plaintext mail
                 ->setTemplate('TaskManagementInfoMail')
@@ -305,13 +305,13 @@ class TaskManagementInformerTask extends AbstractTask
             ->withAttribute('extbase', new \TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters());
         $request = GeneralUtility::makeInstance(Request::class, $serverRequest);
         //$GLOBALS['TYPO3_REQUEST'] = $request;
-         if(!isset($GLOBALS['TYPO3_REQUEST'])){
+        if (!isset($GLOBALS['TYPO3_REQUEST'])) {
             $GLOBALS['TYPO3_REQUEST'] = $request;
-         }
+        }
         return $request;
     }
 
-    
+
 
     /**
      *

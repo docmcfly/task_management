@@ -146,17 +146,17 @@ class TaskManagementInformerTask extends AbstractTask
     private function validate()
     {
         $valid = true;
-
         $valid &= $this->pageRepository != null;
         $valid &= $this->taskRepository != null;
         $valid &= $this->frontendUserRepository != null;
         $valid &= $this->frontendUserGroupRepository != null;
         $valid &= $this->frontendUserService != null;
-
+       
         $valid &= $this->isPageUidValid($this->taskManagementStorageUid);
         $valid &= $this->areUserGroupsUidsValid($this->informFeUserGroupUids);
         $valid &= $this->isPageUidValid($this->infoMailTargetPageUid);
         $valid &= $this->isSiteIdentifierValid($this->siteIdentifier);
+
         return $valid;
     }
 
@@ -197,7 +197,7 @@ class TaskManagementInformerTask extends AbstractTask
      */
     private function isPageUidValid(int $id): bool
     {
-        return $this->pageRepository->getPage($id) != null;
+        return $this->pageRepository->getPage($id, true) != null;
     }
 
     /**
@@ -290,7 +290,7 @@ class TaskManagementInformerTask extends AbstractTask
                 ->assign('user', $frontendUser)
                 ->assign('pageUid', $this->infoMailTargetPageUid)
             ;
-            GeneralUtility::makeInstance(MailerInterface::class)->send($fluidEmail);
+        //    GeneralUtility::makeInstance(MailerInterface::class)->send($fluidEmail);
         }
     }
 

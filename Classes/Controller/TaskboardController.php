@@ -1,13 +1,11 @@
 <?php
-namespace Cylancer\TaskManagement\Controller;
+namespace Cylancer\CyTaskManagement\Controller;
 
-use Cylancer\TaskManagement\Domain\Model\Task;
-use Cylancer\TaskManagement\Domain\Model\CreationTask;
-use Cylancer\TaskManagement\Domain\Repository\TaskRepository;
-use Cylancer\TaskManagement\Service\FrontendUserService;
+use Cylancer\CyTaskManagement\Domain\Model\Task;
+use Cylancer\CyTaskManagement\Domain\Model\CreationTask;
+use Cylancer\CyTaskManagement\Domain\Repository\TaskRepository;
+use Cylancer\CyTaskManagement\Service\FrontendUserService;
 use Psr\Http\Message\ResponseInterface;
-
-// use Cylancer\TaskManagement\Domain\Model\Task;
 
 /**
  * This file is part of the "Task management" Extension for TYPO3 CMS.
@@ -15,41 +13,29 @@ use Psr\Http\Message\ResponseInterface;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2024 C.Gogolin <service@cylancer.net>
- * C. Gogolin <service@cylancer.net>
- *
- * @package Cylancer\TaskManagement\Controller
+ * (c) 2025 C.Gogolin <service@cylancer.net>
+ * 
  */
-class TaskBoardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class TaskboardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
 
-    /** @var FrontendUserService */
-    private $frontendUserService = null;
-
-    /** @var TaskRepository     */
-    private $taskRepository = null;
-
-    /** @var int  */
-    private $now;
+    private int $now;
 
     /**
      * 
      * @param FrontendUserService $frontendUserService
      * @param TaskRepository $taskRepository
      */
-    public function __construct(FrontendUserService $frontendUserService, TaskRepository $taskRepository)
-    {
-        $this->frontendUserService = $frontendUserService;
-        $this->taskRepository = $taskRepository;
+    public function __construct(
+        private readonly FrontendUserService $frontendUserService,
+        private readonly TaskRepository $taskRepository
+    ) {
         $this->now = time();
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function showAction(): ResponseInterface
     {
-        $doneTasks = array();
+        $doneTasks = [];
         foreach ($this->taskRepository->findDoneTasks() as $task) {
             $doneTasks[$task->getDoneAt()->format('m')][] = $task;
         }
@@ -60,9 +46,6 @@ class TaskBoardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         return $this->htmlResponse();
     }
 
-    /**
-     * @var \DateTime $return
-     */
     private function createNow(): \DateTime
     {
         $return = new \DateTime();
@@ -70,10 +53,6 @@ class TaskBoardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         return $return;
     }
 
-    /**
-     * @param Task $currentUserMessage
-     * @return ResponseInterface
-     */
     public function doneAction(Task $task): ResponseInterface
     {
         /** @var Task $task */
@@ -91,11 +70,6 @@ class TaskBoardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         return $this->redirect("show");
     }
 
-    /**
-     * @param CreationTask $newTask
-     * @param Task $newTask
-     * @return ResponseInterface
-     */
     public function createAction(CreationTask $newTask): ResponseInterface
     {
         if (strlen($newTask->getTitle()) > 0) {
@@ -118,10 +92,6 @@ class TaskBoardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         return $this->redirect("show");
     }
 
-    /**
-     * @param Task $task
-     * @return ResponseInterface
-     */
     public function removeAction(Task $task): ResponseInterface
     {
         if ($task->getDoneAt() == null) {
@@ -130,10 +100,6 @@ class TaskBoardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         return $this->redirect("show");
     }
 
-    /**
-     * @param Task $task
-     * @return ResponseInterface
-     */
     public function duplicateAction(Task $task): ResponseInterface
     {
         /** @var CreationTask $newTask */

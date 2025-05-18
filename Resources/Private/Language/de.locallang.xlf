@@ -202,7 +202,7 @@
 				<source>Task storage uid</source>
 				<target>Speicherort der Aufgaben</target>
 			</trans-unit>
-			<trans-unit id="task.taskManagementInformer.invalidPage.taskManagementStorageUid">
+			<trans-unit id="task.taskManagementInformer.error.invalidPage.taskManagementStorageUid">
 				<source>The specified task storage uid is not a valid page.</source>
 				<target>Der angegebene Speicherort der Aufgaben ist keine gültige Seite. </target>
 			</trans-unit> 
@@ -211,8 +211,11 @@
 				<source>User groups to be informed</source>
 				<target>Zu informierende Benutzergruppen</target>
 			</trans-unit>
-
-
+			<trans-unit id="task.taskManagementInformer.error.invalidFrontendUserGroup.informFeUserGroupUids">
+				<source>The list contains the following invalid user group: %1 </source>
+				<target>Die Liste enthält die folgende ungültige Nutzergruppe: %1 </target>
+			</trans-unit>
+			
 			<trans-unit id="task.taskManagementInformer.infoMailTargetPageUid">
 				<source>Target page (uid) of the link to the taskmanagement</source>
 				<target>Zielseite (uid) des Links zum Taskmanagement</target>
@@ -230,28 +233,25 @@
 				<source>Site with specified identifier not found.</source>
 				<target state="tanslated">Site mit dem angebebenen identifier wurde nicht gefunden.</target>
 			</trans-unit>
+
+			<trans-unit id="task.taskManagementInformer.subject">
+				<source>Subject-Text of the informer mail</source>
+				<target>Betreff-Text der Info-Mail</target>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.subject.default">
+				<source>A repetitive task has been put on again</source>
+				<target>Eine wiederholende Aufgaben wurde wieder aufgelegt</target>
+			</trans-unit>
+
+			<trans-unit id="task.taskManagementInformer.error.required.subject">
+				<source>The subject text is required.</source>
+				<target state="tanslated">Der Betreff-Text ist verpflichtend.</target>
+			</trans-unit>
 			
-
-
 			<trans-unit id="task.taskManagementInformer.senderName">
 				<source>Sender name (If you leave this field blank, a default name will be used)</source>
 				<target>Absendername (Wenn Sie dieses Feld leer lassen, wird ein Standardname verwendet)</target>
 			</trans-unit>
-			<trans-unit id="task.taskManagementInformer.error.invalidFrontendUserGroup.informFeUserGroupUids">
-				<source>The list contains the following invalid user group: %1 </source>
-				<target>Die Liste enthält die folgende ungültige Nutzergruppe: %1 </target>
-			</trans-unit>
-			
-			<trans-unit id="task.taskManagementInformer.senderName">
-				<source>Sender name (If you leave this field blank, a default name will be used)</source>
-				<target>Absendername (Wenn Sie dieses Feld leer lassen, wird ein Standardname verwendet)</target>
-			</trans-unit>
-			<trans-unit id="task.taskManagementInformer.error.invalidFrontendUserGroup.informFeUserGroupUids">
-				<source>The list contains the following invalid user group: %1 </source>
-				<target>Die Liste enthält die folgende ungültige Nutzergruppe: %1 </target>
-			</trans-unit>
-
-
 
 			<trans-unit id="taskManagement.settings.title">
 				<source>Setting of the task management</source>
@@ -275,10 +275,7 @@
 				<source>Informer service</source>
 				<target>Informationsservice</target>
 			</trans-unit>
-			<trans-unit id="task.taskManagementInformer.informMail.subject">
-				<source>A repetitive task has been put on again</source>
-				<target>Eine wiederholende Aufgaben wurde wieder augelegt</target>
-			</trans-unit>
+
 			<trans-unit id="task.taskManagementInformer.informMail.salutation">
 				<source>Hello %s</source>
 				<target>Hallo %s</target>

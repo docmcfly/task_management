@@ -7,7 +7,7 @@
 <body>
 	<f:layout name="Default" />
 	<f:section name="content">
-		<f:asset.script identifier="jquery.js" src="EXT:task_management/Resources/Public/JavaScript/jquery/jquery.min.js" priority="true"/>
+		<f:asset.script identifier="jquery.js" src="EXT:cy_task_management/Resources/Public/JavaScript/jquery/jquery.min.js" priority="true"/>
 		<script>
 			var confirmDoneTaskQuestion = '<f:translate key="taskmanagement.form.confirmDoneTask"/>';
 			var confirmRemoveTaskQuestion = '<f:translate key="taskmanagement.form.confirmRemoveTask"/>';
@@ -24,7 +24,7 @@
 					</h2>
 				</div>
 			</div>
-			<f:for each="{openTasks}" as="task">
+		 <f:for each="{openTasks}" as="task">
 				<div class="row mt-2">
 					<div class="col-8 col-lg-10 col-sm-12 form-check">
 						<p class="my-0">{task.title}</p>

@@ -1,77 +1,45 @@
 <?php
-use Cylancer\TaskManagement\Controller\TaskBoardController;
-use Cylancer\TaskManagement\Controller\SettingsController;
+use Cylancer\CyTaskManagement\Controller\SettingsController;
+use Cylancer\CyTaskManagement\Controller\TaskboardController;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 defined('TYPO3') || die('Access denied.');
 
-call_user_func(function () {
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'TaskManagement',
-        'TaskBoard',
-        [
-            TaskBoardController::class => 'show, create, done, remove, duplicate'
-        ],
-        [
-            TaskBoardController::class => 'show, create, done, remove, duplicate'
-        ]
-    );
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'TaskManagement',
-        'Settings',
-        [
-            SettingsController::class => 'show, save'
-        ],
-        [
-            SettingsController::class => 'show, save'
-        ]
-    );
+ExtensionUtility::configurePlugin(
+    'CyTaskManagement',
+    'Taskboard',
+    [
+        TaskboardController::class => 'show, create, done, remove, duplicate'
+    ],
+    [
+        TaskboardController::class => 'show, create, done, remove, duplicate'
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+);
+ExtensionUtility::configurePlugin(
+    'CyTaskManagement',
+    'UserSettings',
+    [
+        SettingsController::class => 'show, save'
+    ],
+    [
+        SettingsController::class => 'show, save'
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+);
 
-    // wizards
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('mod {
-            wizards.newContentElement.wizardItems.plugins {
-                elements {
-                    taskmanagement-plugin-taskboard {
-                        iconIdentifier = taskmanagement-plugin-taskboard
-                        title = LLL:EXT:task_management/Resources/Private/Language/locallang_be_taskboard.xlf:plugin.name
-                        description = LLL:EXT:task_management/Resources/Private/Language/locallang_be_taskboard.xlf:plugin.description
-                        tt_content_defValues {
-                            CType = list
-                            list_type = taskmanagement_taskboard
-                        }
-                    }
-                    taskmanagement-plugin-settings {
-                        iconIdentifier = taskmanagement-plugin-settings
-                        title = LLL:EXT:task_management/Resources/Private/Language/locallang_be_settings.xlf:plugin.name
-                        description = LLL:EXT:task_management/Resources/Private/Language/locallang_be_settings.xlf:plugin.description
-                        tt_content_defValues {
-                            CType = list
-                            list_type = taskmanagement_settings
-                        }
-                    }
-                }
-                show = *
-            }
-       }');
-
-    $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
-    $iconRegistry->registerIcon('taskmanagement-plugin-taskboard', \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class, [
-        'source' => 'EXT:task_management/Resources/Public/Icons/taskmanagement_plugin_taskboard.svg'
-    ]);
-    $iconRegistry->registerIcon('taskmanagement-plugin-settings', \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class, [
-        'source' => 'EXT:task_management/Resources/Public/Icons/taskmanagement_plugin_settings.svg'
-    ]);
-});
 
 // Add task for optimizing database tables
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\Cylancer\TaskManagement\Task\TaskManagementInformerTask::class] = [
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\Cylancer\CyTaskManagement\Task\TaskManagementInformerTask::class] = [
     'extension' => 'taskmanagement',
-    'title' => 'LLL:EXT:task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.title',
-    'description' => 'LLL:EXT:task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.description',
-    'additionalFields' => \Cylancer\TaskManagement\Task\TaskManagementInformerAdditionalFieldProvider::class
+    'title' => 'LLL:EXT:cy_task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.title',
+    'description' => 'LLL:EXT:cy_task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.description',
+    'additionalFields' => \Cylancer\CyTaskManagement\Task\TaskManagementInformerAdditionalFieldProvider::class
 ];
 
 // E-Mail-Templates
-$GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths']['task_management']    = 'EXT:task_management/Resources/Private/Templates/TaskManagementInfoMail/';
-$GLOBALS['TYPO3_CONF_VARS']['MAIL']['layoutRootPaths']['task_management']    = 'EXT:task_management/Resources/Private/Layouts/TaskManagementInfoMail/';
-$GLOBALS['TYPO3_CONF_VARS']['MAIL']['partialRootPaths']['task_management']    = 'EXT:task_management/Resources/Private/Partials/TaskManagementInfoMail/';
+$GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths']['cy_task_management'] = 'EXT:cy_task_management/Resources/Private/Templates/TaskManagementInfoMail/';
+$GLOBALS['TYPO3_CONF_VARS']['MAIL']['layoutRootPaths']['cy_task_management'] = 'EXT:cy_task_management/Resources/Private/Layouts/TaskManagementInfoMail/';
+$GLOBALS['TYPO3_CONF_VARS']['MAIL']['partialRootPaths']['cy_task_management'] = 'EXT:cy_task_management/Resources/Private/Partials/TaskManagementInfoMail/';
 

@@ -1,14 +1,14 @@
 <?php
-namespace Cylancer\TaskManagement\Controller;
+namespace Cylancer\CyTaskManagement\Controller;
 
-use Cylancer\TaskManagement\Domain\Model\Settings;
+use Cylancer\CyTaskManagement\Domain\Model\Settings;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-use Cylancer\TaskManagement\Domain\Repository\FrontendUserRepository;
-use Cylancer\TaskManagement\Domain\Model\FrontendUser;
-use Cylancer\TaskManagement\Service\FrontendUserService;
+use Cylancer\CyTaskManagement\Domain\Repository\FrontendUserRepository;
+use Cylancer\CyTaskManagement\Domain\Model\FrontendUser;
+use Cylancer\CyTaskManagement\Service\FrontendUserService;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
@@ -17,22 +17,11 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2024 C.Gogolin <service@cylancer.net>
+ * (c) 2025 C.Gogolin <service@cylancer.net>
  *
- * @package Cylancer\TaskManagement\Controller
  */
 class SettingsController extends ActionController
 {
-
-    /** @var FrontendUserService */
-    private $frontendUserService = null;
-
-    /** @var PersistenceManager */
-    private $persistenceManager;
-
-    /** @var FrontendUserRepository */
-    private $frontendUserRepository = null;
-
     /**
      * 
      * @param FrontendUserService $frontendUserService
@@ -40,23 +29,17 @@ class SettingsController extends ActionController
      * @param FrontendUserRepository $frontendUserRepository
      */
     public function __construct(
-        FrontendUserService $frontendUserService,
-        PersistenceManager $persistenceManager,
-        FrontendUserRepository $frontendUserRepository
+        private readonly FrontendUserService $frontendUserService,
+        private readonly PersistenceManager $persistenceManager,
+        private readonly FrontendUserRepository $frontendUserRepository
     ) {
-        $this->frontendUserService = $frontendUserService;
-        $this->persistenceManager = $persistenceManager;
-        $this->frontendUserRepository = $frontendUserRepository;
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function showAction(): ResponseInterface
     {
         /** @var FrontendUser $frontendUser  */
         $frontendUser = $this->frontendUserService->getCurrentUser();
-       // debug($frontendUser);
+        // debug($frontendUser);
         if ($frontendUser != null) {
             $s = new Settings();
             $s->setInfoMailWhenRepeatedTaskAdded($frontendUser->getInfoMailWhenRepeatedTaskAdded());
@@ -65,11 +48,6 @@ class SettingsController extends ActionController
         return $this->htmlResponse();
     }
 
-    /**
-     *
-     * @param Settings $settings
-     * @return ResponseInterface
-     */
     public function saveAction(Settings $settings): ResponseInterface
     {
         /** @var FrontendUser $frontendUser  */

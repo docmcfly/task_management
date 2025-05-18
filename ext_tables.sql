@@ -1,4 +1,4 @@
-CREATE TABLE tx_taskmanagement_domain_model_task (
+CREATE TABLE tx_cytaskmanagement_domain_model_task (
 	title varchar(255) NOT NULL DEFAULT '',
 	done_at int(11) NOT NULL DEFAULT '0',
 	user int(11) unsigned NOT NULL DEFAULT '0',

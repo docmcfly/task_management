@@ -1,5 +1,5 @@
 <?php
-namespace Cylancer\TaskManagement\Domain\Model;
+namespace Cylancer\CyTaskManagement\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -11,26 +11,16 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2024 C.Gogolin <service@cylancer.net>
+ * (c) 2025 C.Gogolin <service@cylancer.net>
  *
- * @package Cylancer\TaskManagement\Domain\Model
  */
 class FrontendUserGroup extends AbstractEntity
 {
 
-    /**
-     *
-     * @var string
-     */
-    protected $title = '';
+    protected ?string $title = '';
 
-    
-
-    /**
-     *
-     * @var ObjectStorage<FrontendUserGroup>
-     */
-    protected $subgroup;
+    /** @var ObjectStorage<FrontendUserGroup> */
+    protected ObjectStorage $subgroup;
 
     /**
      * Constructs a new Frontend User Group
@@ -40,25 +30,12 @@ class FrontendUserGroup extends AbstractEntity
         $this->subgroup = new ObjectStorage();
     }
 
-    /**
-     * Sets the subgroups.
-     * Keep in mind that the property is called "subgroup"
-     * although it can hold several subgroups.
-     *
-     * @param ObjectStorage<FrontendUserGroup> $subgroup
-     *            An object storage containing the subgroups to add
-     */
-    public function setSubgroup(ObjectStorage $subgroup)
+    public function setSubgroup(ObjectStorage $subgroup): void
     {
         $this->subgroup = $subgroup;
     }
 
-    /**
-     * Adds a subgroup to the frontend user
-     *
-     * @param FrontendUserGroup $subgroup
-     */
-    public function addSubgroup(FrontendUserGroup $subgroup)
+    public function addSubgroup(FrontendUserGroup $subgroup): void
     {
         $this->subgroup->attach($subgroup);
     }
@@ -68,38 +45,24 @@ class FrontendUserGroup extends AbstractEntity
      *
      * @param FrontendUserGroup $subgroup
      */
-    public function removeSubgroup(FrontendUserGroup $subgroup)
+    public function removeSubgroup(FrontendUserGroup $subgroup): void
     {
         $this->subgroup->detach($subgroup);
     }
 
-    /**
-     * Returns the subgroups.
-     * Keep in mind that the property is called "subgroup"
-     * although it can hold several subgroups.
-     *
-     * @return ObjectStorage<FrontendUserGroup> An object storage containing the subgroups
-     */
-    public function getSubgroup()
+    public function getSubgroup(): ObjectStorage
     {
         return $this->subgroup;
     }
 
-	/**
-	 * 
-	 * @return string
-	 */
-	public function getTitle() {
-		return $this->title;
-	}
-	
-	/**
-	 * 
-	 * @param string $title 
-	 * @return self
-	 */
-	public function setTitle($title): self {
-		$this->title = $title;
-		return $this;
-	}
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(?string $title): self
+    {
+        $this->title = $title;
+        return $this;
+    }
 }

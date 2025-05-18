@@ -1,5 +1,5 @@
 <?php
-namespace Cylancer\TaskManagement\Domain\Model;
+namespace Cylancer\CyTaskManagement\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -11,257 +11,128 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2024 C.Gogolin <service@cylancer.net>
+ * (c) 2025 C.Gogolin <service@cylancer.net>
  *
- * @package Cylancer\TaskManagement\Domain\Model
  */
 class FrontendUser extends AbstractEntity
 {
 
-    /**
-     *
-     * @var bool
-     */
-    protected $currentlyOffDuty = false;
+    protected bool $currentlyOffDuty = false;
 
-    /**
-     *
-     * @var ObjectStorage<FrontendUserGroup>
-     */
-    protected $usergroup;
+    /** @var ObjectStorage<FrontendUserGroup> */
+    protected ObjectStorage $usergroup;
 
-   
-    /**
-     *
-     * @var string
-     */
-    protected $username = '';
+    protected ?string $username = '';
 
-    /**
-     *
-     * @var string
-     */
-    protected $name = '';
+    protected ?string $name = '';
 
-    /**
-     *
-     * @var string
-     */
-    protected $firstName = '';
+    protected ?string $firstName = '';
 
-    /**
-     *
-     * @var string
-     */
-    protected $lastName = '';
+    protected ?string $lastName = '';
 
-    /**
-     *
-     * @var string
-     */
-    protected $email = '';
+    protected ?string $email = '';
 
+    protected bool $infoMailWhenRepeatedTaskAdded = true;
 
-    /**
-     *
-     * @var boolean
-     */
-    protected $infoMailWhenRepeatedTaskAdded = true;
-
-    /**
-     * Constructs a new Front-End User
-     */
     public function __construct()
     {
         $this->usergroup = new ObjectStorage();
     }
 
-    /**
-     * Called again with initialize object, as fetching an entity from the DB does not use the constructor
-     */
     public function initializeObject()
     {
         $this->usergroup = $this->usergroup ?? new ObjectStorage();
     }
 
 
-    /**
-     * Sets the usergroups.
-     * Keep in mind that the property is called "usergroup"
-     * although it can hold several usergroups.
-     *
-     * @param ObjectStorage<FrontendUserGroup> $usergroup
-     */
-    public function setUsergroup(ObjectStorage $usergroup)
+    public function setUsergroup(ObjectStorage $usergroup): void
     {
         $this->usergroup = $usergroup;
     }
 
-    /**
-     * Adds a usergroup to the frontend user
-     *
-     * @param FrontendUserGroup $usergroup
-     */
-    public function addUsergroup(FrontendUserGroup $usergroup)
+    public function addUsergroup(FrontendUserGroup $usergroup): void
     {
         $this->usergroup->attach($usergroup);
     }
 
-    /**
-     * Removes a usergroup from the frontend user
-     *
-     * @param FrontendUserGroup $usergroup
-     */
-    public function removeUsergroup(FrontendUserGroup $usergroup)
+    public function removeUsergroup(FrontendUserGroup $usergroup): void
     {
         $this->usergroup->detach($usergroup);
     }
 
-    /**
-     * Returns the usergroups.
-     * Keep in mind that the property is called "usergroup"
-     * although it can hold several usergroups.
-     *
-     * @return ObjectStorage<FrontendUserGroup> An object storage containing the usergroup
-     */
-    public function getUsergroup()
+    public function getUsergroup(): ObjectStorage
     {
         return $this->usergroup;
     }
 
 
-    /**
-     * Sets the username value
-     *
-     * @param string $username
-     */
-    public function setUsername(String $username): void
+    public function setUsername(?string $username): void
     {
         $this->username = $username;
     }
 
-    /**
-     * Returns the username value
-     *
-     * @return string
-     */
-    public function getUsername(): String
+    public function getUsername(): ?string
     {
         return $this->username;
     }
 
-    /**
-     * Sets the name value
-     *
-     * @param string $name
-     */
-    public function setName($name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * Returns the name value
-     *
-     * @return string
-     */
-    public function getName(): String
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * Sets the firstName value
-     *
-     * @param string $firstName
-     */
-    public function setFirstName($firstName)
+    public function setFirstName(?string $firstName): void
     {
         $this->firstName = $firstName;
     }
 
-    /**
-     * Returns the firstName value
-     *
-     * @return string
-     */
-    public function getFirstName()
+    public function getFirstName(): ?string
     {
         return $this->firstName;
     }
 
-    /**
-     * Sets the lastName value
-     *
-     * @param string $lastName
-     */
-    public function setLastName($lastName)
+    public function setLastName(?string $lastName): void
     {
         $this->lastName = $lastName;
     }
 
-    /**
-     * Returns the lastName value
-     *
-     * @return string
-     */
-    public function getLastName()
+    public function getLastName(): ?string
     {
         return $this->lastName;
     }
 
-    /**
-     * Sets the email value
-     *
-     * @param string $email
-     */
-    public function setEmail(String $email): void
+    public function setEmail(?string $email): void
     {
         $this->email = $email;
     }
 
-    /**
-     * Returns the email value
-     *
-     * @return string
-     */
-    public function getEmail(): ?String
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    /**
-     *
-     * @return boolean
-     */
     public function getInfoMailWhenRepeatedTaskAdded(): bool
     {
         return $this->infoMailWhenRepeatedTaskAdded;
     }
 
-    /**
-     *
-     * @param boolean $b
-     * @return void
-     */
     public function setInfoMailWhenRepeatedTaskAdded(bool $b): void
     {
         $this->infoMailWhenRepeatedTaskAdded = $b;
     }
 
 
-    /**
-     *
-     * @param FrontendUserGroup $userGroup
-     * @param array $duplicateProtection
-     * @return array
-     */
     private function getSubUserGroups(FrontendUserGroup $frontendUserGroup, array &$duplicateProtection): array
     {
-        $return = array();
+        $return = [];
         /** @var FrontendUserGroup $sg */
         foreach ($frontendUserGroup->getSubgroup() as $sg) {
-            if (! in_array($sg->getUid(), $duplicateProtection)) {
+            if (!in_array($sg->getUid(), $duplicateProtection)) {
                 $duplicateProtection[] = $sg->getUid();
                 $return[$sg->getTitle()] = $sg;
                 $return = array_merge($return, $this->getSubUserGroups($sg, $duplicateProtection));

@@ -5,15 +5,15 @@
 <body>
 <f:layout name="TaskManagementInfoMail"/>
 <f:section name="content">
-<f:translate key="LLL:EXT:task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.salutation" arguments="{0:user.name}" />
+<f:translate key="LLL:EXT:cy_task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.salutation" arguments="{0:user.name}" />
 
-<f:translate key="LLL:EXT:task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.teaser" />
+<f:translate key="LLL:EXT:cy_task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.teaser" />
 
-<f:uri.action linkAccessRestrictedPages="true"  absolute="true" pageUid="{pageUid}" noCache="true" />
+<f:uri.action linkAccessRestrictedPages="true" extensionName="CyTaskManagement" pluginName="Taskboard" absolute="true" pageUid="{pageUid}" noCache="true" action="show" controller="Taskboard"/>
 
-<f:translate key="LLL:EXT:task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.footer" />
+<f:translate key="LLL:EXT:cy_task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.footer" />
  
-<f:translate key="LLL:EXT:task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.regards" />
+<f:translate key="LLL:EXT:cy_task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.regards" />
 </f:section>
 </body></html>
 

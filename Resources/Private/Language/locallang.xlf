@@ -110,38 +110,62 @@
 				<source>December</source>
 			</trans-unit>
 
-
 			<trans-unit id="task.taskManagementInformer.title">
 				<source>Task management change informer</source>
 			</trans-unit>
+
 			<trans-unit id="task.taskManagementInformer.description">
 				<source>Informs the users if a task is repeated.</source>
 			</trans-unit>
-			<trans-unit id="task.taskManagementInformer.taskManagementStorageUid">
-				<source>Task storage uid:</source>
-			</trans-unit>
-			<trans-unit id="task.taskManagementInformer.invalidPage.taskManagementStorageUid">
-				<source>The specified task storage uid is not a valid page.</source>
-			</trans-unit>
 
+			<trans-unit id="task.taskManagementInformer.taskManagementStorageUid">
+				<source>Task storage uid</source>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.error.invalidPage.taskManagementStorageUid">
+				<source>The specified task storage uid is not a valid page.</source>
+			</trans-unit> 
+			
 			<trans-unit id="task.taskManagementInformer.informFeUserGroupUids">
 				<source>User groups to be informed</source>
-			</trans-unit>
-
-			<trans-unit id="task.taskManagementInformer.senderName">
-				<source>Sender name (If you leave this field blank, a default name will be used)</source>
 			</trans-unit>
 
 			<trans-unit id="task.taskManagementInformer.error.invalidFrontendUserGroup.informFeUserGroupUids">
 				<source>The list contains the following invalid user group: %1 </source>
 			</trans-unit>
+			
+			<trans-unit id="task.taskManagementInformer.infoMailTargetPageUid">
+				<source>Target page (uid) of the link to the taskmanagement</source>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.error.invalidPage.infoMailTargetPageUid">
+				<source>The specified target page uid is not a valid page.</source>
+			</trans-unit> 
 
-			<trans-unit id="task.taskManagementInformer.infoMailTargetUrl">
-				<source>Target URL of the task list</source>
+			<trans-unit id="task.taskManagementInformer.siteIdentifier">
+				<source>Site identifier</source>
+				<target state="tanslated">Site Identifier (Eindeutige Kennung)</target>
 			</trans-unit>
-			<trans-unit id="task.taskManagementInformer.invalidPage.taskManagementStorageUid">
-				<source>The URL is invalid.</source>
+			<trans-unit id="task.taskManagementInformer.error.siteNotFound.siteIdentifier">
+				<source>Site with specified identifier not found.</source>
+				<target state="tanslated">Site mit dem angebebenen identifier wurde nicht gefunden.</target>
 			</trans-unit>
+
+			<trans-unit id="task.taskManagementInformer.subject">
+				<source>Subject-Text of the informer mail</source>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.subject.default">
+				<source>A repetitive task has been put on again</source>
+			</trans-unit>
+
+			<trans-unit id="task.taskManagementInformer.error.required.subject">
+				<source>The subject text is required.</source>
+				<target state="tanslated">Der Betreff-Text ist verpflichtend.</target>
+			</trans-unit>
+			
+			<trans-unit id="task.taskManagementInformer.senderName">
+				<source>Sender name (If you leave this field blank, a default name will be used)</source>
+			</trans-unit>
+
+
 
 			<trans-unit id="taskManagement.settings.title">
 				<source>Setting of the task management</source>
@@ -160,21 +184,20 @@
 			<trans-unit id="task.taskManagementInformer.informMail.senderName">
 				<source>Informer service</source>
 			</trans-unit>
-			<trans-unit id="task.taskManagementInformer.informMail.subject">
-				<source>A repetitive task has been put on again</source>
-			</trans-unit>
+
 			<trans-unit id="task.taskManagementInformer.informMail.salutation">
 				<source>Hello %s</source>
 			</trans-unit>
 			<trans-unit id="task.taskManagementInformer.informMail.teaser">
-				<source>At least one repetitive task has been reissued. You can find the task under:</source>
+				<source>At least one repetitive task has been reissued. You can find the task under: </source>
+			</trans-unit>
+			<trans-unit id="task.taskManagementInformer.informMail.targetLink">
+				<source>Link to the task management...</source>
 			</trans-unit>
 			<trans-unit id="task.taskManagementInformer.informMail.footer">
-				<source>Best regards,
-your webmaster
-				</source>
+				<source>Best regards, 
+your webmaster</source>
 			</trans-unit>
-
 
 
 		</body>

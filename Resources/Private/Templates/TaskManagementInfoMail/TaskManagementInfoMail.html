@@ -1,17 +1,41 @@
-<!DOCTYPE html PUBLIC "-//WC//DTD XHTML . Strict//EN"
-	"http://www.w.org/TR/xhtml/DTD/xhtml-strict.dtd">
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" 
-	data-namespace-typo3-fluid="true" xmlns="http://www.w.org//xhtml" xml:lang="en" lang="en"
->
+<!DOCTYPE html PUBLIC "-//WC//DTD XHTML . Strict//EN" "http://www.w.org/TR/xhtml/DTD/xhtml-strict.dtd">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true"
+	xmlns="http://www.w.org//xhtml" xml:lang="en" lang="en">
+
 <head>
-<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 </head>
+
 <body>
-<f:layout name="TaskManagementInfoMail" /><f:section name="content"><p><f:translate key="LLL:EXT:task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.salutation" arguments="{0:user.name}" /></p>
-  
-	<p><f:translate key="LLL:EXT:task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.teaser" /></p>
-	<p><f:link.action linkAccessRestrictedPages="true"  absolute="true" pageUid="{pageUid}" noCache="true" ><f:translate key="LLL:EXT:task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.targetLink" /></f:link.action></p>
-	<p><f:translate key="LLL:EXT:task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.footer" /></p> 
-	<p><f:translate key="LLL:EXT:task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.regards" /></p>
-	<p>&nbsp;</p> 
-</f:section></body></html> 
+	<f:layout name="TaskManagementInfoMail" />
+	<f:section name="content">
+		<p>
+			<f:translate
+				key="LLL:EXT:cy_task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.salutation"
+				arguments="{0:user.name}" />
+		</p>
+
+		<p>
+			<f:translate
+				key="LLL:EXT:cy_task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.teaser" />
+		</p>
+		<p>
+			<f:link.action linkAccessRestrictedPages="true" absolute="true" pageUid="{pageUid}" noCache="true"
+				extensionName="CyTaskManagement" pluginName="Taskboard" controller="Taskboard" action="show">
+				<f:translate
+					key="LLL:EXT:cy_task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.targetLink" />
+			</f:link.action>
+		</p>
+		<p>
+			<f:translate
+				key="LLL:EXT:cy_task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.footer" />
+		</p>
+		<p>
+			<f:translate
+				key="LLL:EXT:cy_task_management/Resources/Private/Language/locallang.xlf:task.taskManagementInformer.informMail.regards" />
+		</p>
+		<p>&nbsp;</p>
+	</f:section>
+</body>
+
+</html>

@@ -4,12 +4,12 @@
 		<header/>
 		<body>
 			<trans-unit id="plugin.name">
-				<source>Plugin for the task management settings</source>
-				<target>Einstellung für die Aufgabenverwaltung</target>
+				<source>User settings for the task management</source>
+				<target>Nutzereinstellung für die Aufgabenverwaltung</target>
 			</trans-unit>
 			<trans-unit id="plugin.description">
 				<source>With this plugin the user can set the proteries of the task management.</source>
-				<target>Mit diesem Plugin können Einstellung bzgl. der Aufgabenverwaltung vorgenommen werden.</target>
+				<target>Mit diesem Plugin können Nutzer Einstellung bzgl. der Aufgabenverwaltung tätigen</target>
 			</trans-unit>
 		</body>
 	</file>

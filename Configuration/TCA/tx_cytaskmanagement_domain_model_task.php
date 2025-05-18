@@ -1,7 +1,7 @@
 <?php
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:task_management/Resources/Private/Language/locallang_db.xlf:tx_taskmanagement_domain_model_task',
+        'title' => 'LLL:EXT:cy_task_management/Resources/Private/Language/locallang_db.xlf:tx_cytaskmanagement_domain_model_task',
         'label' => 'title',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -17,7 +17,7 @@ return [
             'endtime' => 'endtime'
         ],
         'searchFields' => 'title',
-        'iconfile' => 'EXT:task_management/Resources/Public/Icons/tx_taskmanagement_domain_model_task.gif'
+        'iconfile' => 'EXT:cy_task_management/Resources/Public/Icons/tx_taskmanagement_domain_model_task.gif'
     ],
     'types' => [
         '1' => [
@@ -55,8 +55,8 @@ return [
                         0
                     ]
                 ],
-                'foreign_table' => 'tx_taskmanagement_domain_model_task',
-                'foreign_table_where' => 'AND {#tx_taskmanagement_domain_model_task}.{#pid}=###CURRENT_PID### AND {#tx_taskmanagement_domain_model_task}.{#sys_language_uid} IN (-1,0)'
+                'foreign_table' => 'tx_cytaskmanagement_domain_model_task',
+                'foreign_table_where' => 'AND {#tx_cytaskmanagement_domain_model_task}.{#pid}=###CURRENT_PID### AND {#tx_cytaskmanagement_domain_model_task}.{#sys_language_uid} IN (-1,0)'
             ]
         ],
         'l10n_diffsource' => [
@@ -111,7 +111,7 @@ return [
 
         'title' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:task_management/Resources/Private/Language/locallang_db.xlf:tx_taskmanagement_domain_model_task.title',
+            'label' => 'LLL:EXT:cy_task_management/Resources/Private/Language/locallang_db.xlf:tx_cytaskmanagement_domain_model_task.title',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -122,7 +122,7 @@ return [
         ],
         'done_at' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:task_management/Resources/Private/Language/locallang_db.xlf:tx_taskmanagement_domain_model_task.done_at',
+            'label' => 'LLL:EXT:cy_task_management/Resources/Private/Language/locallang_db.xlf:tx_cytaskmanagement_domain_model_task.done_at',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
@@ -133,7 +133,7 @@ return [
             ]
         ],
         'user' => [
-            'label' => 'LLL:EXT:task_management/Resources/Private/Language/locallang_db.xlf:tx_taskmanagement_domain_model_task.user',
+            'label' => 'LLL:EXT:cy_task_management/Resources/Private/Language/locallang_db.xlf:tx_cytaskmanagement_domain_model_task.user',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -145,7 +145,7 @@ return [
         ],
         'repeat_period_unit' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:task_management/Resources/Private/Language/locallang_db.xlf:tx_taskmanagement_domain_model_task.repeat_period_unit',
+            'label' => 'LLL:EXT:cy_task_management/Resources/Private/Language/locallang_db.xlf:tx_cytaskmanagement_domain_model_task.repeat_period_unit',
             'config' => [
                 'type' => 'input',
                 'size' => 6,
@@ -156,7 +156,7 @@ return [
         ],
         'repeat_period_count' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:task_management/Resources/Private/Language/locallang_db.xlf:tx_taskmanagement_domain_model_task.repeat_period_count',
+            'label' => 'LLL:EXT:cy_task_management/Resources/Private/Language/locallang_db.xlf:tx_cytaskmanagement_domain_model_task.repeat_period_count',
             'config' => [
                 'type' => 'input',
                 'size' => 6,
@@ -167,7 +167,7 @@ return [
         ],
         'next_repetition' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:task_management/Resources/Private/Language/locallang_db.xlf:tx_taskmanagement_domain_model_task.next_repetition',
+            'label' => 'LLL:EXT:cy_task_management/Resources/Private/Language/locallang_db.xlf:tx_cytaskmanagement_domain_model_task.next_repetition',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',

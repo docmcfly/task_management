@@ -1,27 +1,27 @@
 {
-	"name" : "cylanver/taskmanagement",
+	"name" : "cylanver/cy_task_management",
 	"type" : "typo3-cms-extension",
 	"license" : "GPL-2.0-or-later",
 	"description" : "A small tast management extension for TYPO3",
 	"authors" : [{
-		"name" : "Clemens Gogolin",
+		"name" : "C. Gogolin",
 		"role" : "Developer"
 	}, {
-		"name" : "Clemens Gogolin",
+		"name" : "C. Gogolin",
 		"role" : "Product Manager"
 	}
 	],
 	"require" : {
-		"typo3/cms-core" : "^12.4"
+		"typo3/cms-core" : "^13.4"
 	},
 	"autoload" : {
 		"psr-4" : {
-			"Cylancer\\TaskManagement\\" : "Classes/"
+			"Cylancer\\CyTaskManagement\\" : "Classes/"
 		}
 	},
 	"extra" : {
 		"typo3/cms" : {
-			"extension-key" : "taskmanagement"
+			"extension-key" : "cytaskmanagement"
 		}
 	}
 }

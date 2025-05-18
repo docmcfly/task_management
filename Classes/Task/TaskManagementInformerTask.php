@@ -1,107 +1,82 @@
 <?php
-namespace Cylancer\TaskManagement\Task;
+namespace Cylancer\CyTaskManagement\Task;
 
+use Cylancer\CyTaskManagement\Domain\Repository\TaskRepository;
+use Cylancer\CyTaskManagement\Domain\Model\Task;
+use Cylancer\CyTaskManagement\Domain\Repository\FrontendUserRepository;
+use Cylancer\CyTaskManagement\Domain\Repository\FrontendUserGroupRepository;
+use Cylancer\CyTaskManagement\Domain\Model\FrontendUser;
+use Cylancer\CyTaskManagement\Service\FrontendUserService;
+
+use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Domain\Repository\PageRepository;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Scheduler\Task\AbstractTask;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Core\Mail\MailerInterface;
 use TYPO3\CMS\Core\Site\SiteFinder;
-use TYPO3\CMS\Extbase\Mvc\Request;
-use TYPO3\CMS\Extbase\Mvc\RequestInterface;
-use TYPO3\CMS\Scheduler\Task\AbstractTask;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Database\Query\QueryBuilder;
-use Cylancer\TaskManagement\Domain\Repository\TaskRepository;
-use Cylancer\TaskManagement\Domain\Model\Task;
-use Cylancer\TaskManagement\Service\EmailSendService;
-use Cylancer\TaskManagement\Domain\Repository\FrontendUserRepository;
-use Cylancer\TaskManagement\Domain\Repository\FrontendUserGroupRepository;
-use Cylancer\TaskManagement\Domain\Model\FrontendUser;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use Cylancer\TaskManagement\Service\FrontendUserService;
 use TYPO3\CMS\Core\Utility\MailUtility;
+use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
+use TYPO3\CMS\Core\Http\ServerRequest;
+use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
+
 
 class TaskManagementInformerTask extends AbstractTask
 {
 
     // ------------------------------------------------------
     // input fields
-    const TASK_MANAGEMENT_STORAGE_UID = 'taskManagementStorageUid';
+    public const TASK_MANAGEMENT_STORAGE_UID = 'taskManagementStorageUid';
 
-    const INFORM_FE_USER_GROUP_UIDS = 'informFeUserGroupUids';
+    public const INFORM_FE_USER_GROUP_UIDS = 'informFeUserGroupUids';
 
-    const INFO_MAIL_TARGET_PAGE_UID = 'infoMailTargetPageUid';
+    public const INFO_MAIL_TARGET_PAGE_UID = 'infoMailTargetPageUid';
 
-    const SENDER_NAME = 'senderName';
+    public const SENDER_NAME = 'senderName';
+    public const SUBJECT = 'subject';
 
-    const SITE_IDENTIFIER = 'siteIdentifier';
+    public const SITE_IDENTIFIER = 'siteIdentifier';
+    public int|string $taskManagementStorageUid = 0;
+    public array|string $informFeUserGroupUids = [];
+    public int|string $infoMailTargetPageUid = 0;
 
-    /** @var int */
-    public $taskManagementStorageUid = 0;
+    public string $senderName = '';
+    public string $subject = '';
 
-    /** @var string */
-    public $informFeUserGroupUids = '';
-
-    /** @var int */
-    public $infoMailTargetPageUid = 0;
-
-    /** @var string */
-    public $senderName = '';
-
-    /** @var string */
-    public $siteIdentifier = '';
-
-    // ------------------------------------------------------
-    // debug switch
-    const DISABLE_PERSISTENCE_MANAGER = false;
-
-    const EXTENSION_NAME = 'TaskManagement';
+    public string $siteIdentifier = '';
 
     // ------------------------------------------------------
 
-    /** @var FrontendUserService */
-    private $frontendUserService = null;
+    public const EXTENSION_NAME = 'CyTaskManagement';
 
-    /** @var PersistenceManager */
-    private $persistenceManager;
+    // ------------------------------------------------------
 
-    /** @var FrontendUserRepository */
-    private $frontendUserRepository = null;
+    private ?FrontendUserService $frontendUserService = null;
 
-    /** @var TaskRepository */
-    private $taskRepository = null;
+    private ?PersistenceManager $persistenceManager;
+    private ?FrontendUserRepository $frontendUserRepository = null;
 
-    /** @var PageRepository */
-    private $pageRepository = null;
+    private ?TaskRepository $taskRepository = null;
 
-    /** @var FrontendUserGroupRepository */
-    private $frontendUserGroupRepository = null;
+    private ?PageRepository $pageRepository = null;
 
-    /**  @var EmailSendService */
-    public $emailSendService = null;
+    private ?FrontendUserGroupRepository $frontendUserGroupRepository = null;
 
-    /** @var array */
-    private $targetGroups = null;
+    private int $now = 0;
 
-    /** @var int */
-    private $now;
-
-    private function initialize()
+    private function initialize(): void
     {
         $this->now = time();
-
-        $this->taskManagementStorageUid = intval($this->taskManagementStorageUid);
-        $this->infoMailTargetPageUid = intval($this->infoMailTargetPageUid);
-        $this->informFeUserGroupUids = GeneralUtility::intExplode(',', $this->informFeUserGroupUids);
-
 
         $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
 
         $feUserStorageUids = [];
-        /** @var QueryBuilder $qb */
+        /** @var \TYPO3\CMS\Core\Database\Query\QueryBuilder $qb */
         $qb = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
         $s = $qb->select('uid')
             ->from('pages')
@@ -133,7 +108,13 @@ class TaskManagementInformerTask extends AbstractTask
             $this->taskManagementStorageUid
         ]);
         $this->taskRepository->setDefaultQuerySettings($querySettings);
-        $this->frontendUserService = GeneralUtility::makeInstance(FrontendUserService::class, $this->frontendUserRepository, $this->frontendUserGroupRepository);
+        $this->frontendUserService = GeneralUtility::makeInstance(
+            FrontendUserService::class,
+            $this->frontendUserRepository,
+            $this->frontendUserGroupRepository,
+            GeneralUtility::makeInstance(Context::class),
+            GeneralUtility::makeInstance(ConnectionPool::class),
+        );
 
         if (empty($this->senderName)) {
             $this->senderName = LocalizationUtility::translate(
@@ -143,7 +124,7 @@ class TaskManagementInformerTask extends AbstractTask
         }
     }
 
-    private function validate()
+    private function validate(): bool
     {
         $valid = true;
         $valid &= $this->pageRepository != null;
@@ -151,7 +132,7 @@ class TaskManagementInformerTask extends AbstractTask
         $valid &= $this->frontendUserRepository != null;
         $valid &= $this->frontendUserGroupRepository != null;
         $valid &= $this->frontendUserService != null;
-       
+
         $valid &= $this->isPageUidValid($this->taskManagementStorageUid);
         $valid &= $this->areUserGroupsUidsValid($this->informFeUserGroupUids);
         $valid &= $this->isPageUidValid($this->infoMailTargetPageUid);
@@ -160,26 +141,17 @@ class TaskManagementInformerTask extends AbstractTask
         return $valid;
     }
 
-
-    /**
-     * This method returns the sleep duration as additional information
-     *
-     * @return string Information to display
-     */
     public function getAdditionalInformation()
     {
         return 'Tasks storage uid :' . $this->taskManagementStorageUid . //
-            ' / rontend user groups: ' . $this->informFeUserGroupUids . //
-            ' / site identifier: ' . $this->siteIdentifier . //
+            ' / sender name: "' . $this->senderName . '"' . //
+            ' / subject: "' . $this->subject . '"' . //
+            ' / frontend user groups: [ ' . implode(',', $this->informFeUserGroupUids) . ' ]' . //
+            ' / site identifier: "' . $this->siteIdentifier . '"' . //
             ' / target page uid: ' . $this->infoMailTargetPageUid . //
             '';
     }
 
-    /**
-     *
-     * @param array $uids
-     * @return bool
-     */
     private function areUserGroupsUidsValid(array $uids): bool
     {
         foreach ($uids as $uid) {
@@ -190,31 +162,17 @@ class TaskManagementInformerTask extends AbstractTask
         return true;
     }
 
-    /**
-     *
-     * @param int $id
-     * @return bool
-     */
     private function isPageUidValid(int $id): bool
     {
         return $this->pageRepository->getPage($id, true) != null;
     }
 
-    /**
-     *
-     * @param string $url
-     * @return bool
-     */
     private function isUrlValid(string $url): bool
     {
         return is_string($url) && strlen($url) > 5 && filter_var($url, FILTER_VALIDATE_URL);
     }
 
 
-    /**
-     *
-     * @return boolean
-     */
     private function isSiteIdentifierValid(string $siteIdentifier): bool
     {
         try {
@@ -225,18 +183,7 @@ class TaskManagementInformerTask extends AbstractTask
         return true;
     }
 
-    /**
-     *
-     * @return \DateTime
-     */
-    private function createNow(): \DateTime
-    {
-        $return = new \DateTime();
-        $return->setTimestamp($this->now);
-        return $return;
-    }
-
-    public function execute()
+    public function execute(): bool
     {
         $this->initialize();
 
@@ -256,8 +203,8 @@ class TaskManagementInformerTask extends AbstractTask
                 $task->setNextRepetition(null);
                 $this->taskRepository->update($task);
                 $sendInfoMail = true;
-            }
-            //            $this->persistenceManager->persistAll();
+            } 
+            $this->persistenceManager->persistAll();
             if ($sendInfoMail) {
                 $this->sendInfoMails();
             }
@@ -268,68 +215,58 @@ class TaskManagementInformerTask extends AbstractTask
         }
     }
 
-    private function sendInfoMails()
+    private function sendInfoMails(): void
     {
         foreach ($this->frontendUserService->getInformFrontendUser($this->informFeUserGroupUids) as $userUid) {
             $this->sendInfoMail($this->frontendUserRepository->findByUid($userUid));
         }
     }
 
-    private function sendInfoMail(FrontendUser $frontendUser)
+    private function sendInfoMail(FrontendUser $frontendUser): void
     {
         if (filter_var($frontendUser->getEmail(), FILTER_VALIDATE_EMAIL)) {
-
             $fluidEmail = GeneralUtility::makeInstance(FluidEmail::class);
             $fluidEmail
                 ->setRequest($this->createRequest($this->siteIdentifier))
                 ->to(new Address($frontendUser->getEmail(), $frontendUser->getFirstName() . ' ' . $frontendUser->getLastName()))
                 ->from(new Address(MailUtility::getSystemFromAddress(), $this->senderName))
-                ->subject(LocalizationUtility::translate('task.taskManagementInformer.informMail.senderName', TaskManagementInformerTask::EXTENSION_NAME))
+                ->subject($this->subject)
                 ->format(FluidEmail::FORMAT_BOTH) // send HTML and plaintext mail
                 ->setTemplate('TaskManagementInfoMail')
                 ->assign('user', $frontendUser)
-                ->assign('pageUid', $this->infoMailTargetPageUid)
-            ;
-        //    GeneralUtility::makeInstance(MailerInterface::class)->send($fluidEmail);
+                ->assign('pageUid', $this->infoMailTargetPageUid);
+
+            GeneralUtility::makeInstance(MailerInterface::class)->send($fluidEmail);
         }
     }
 
 
-    private function createRequest(string $siteIdentifier): RequestInterface
+
+    private function createRequest(string $siteIdentifier): ServerRequest
     {
         $serverRequestFactory = GeneralUtility::makeInstance(ServerRequestFactoryInterface::class);
         $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByIdentifier($siteIdentifier);
         $serverRequest = $serverRequestFactory->createServerRequest('GET', $site->getBase())
-            ->withAttribute('applicationType', \TYPO3\CMS\Core\Core\SystemEnvironmentBuilder::REQUESTTYPE_FE)
+            ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_FE)
             ->withAttribute('site', $site)
-            ->withAttribute('extbase', new \TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters());
-        $request = GeneralUtility::makeInstance(Request::class, $serverRequest);
-        //$GLOBALS['TYPO3_REQUEST'] = $request;
-        if (!isset($GLOBALS['TYPO3_REQUEST'])) {
-            $GLOBALS['TYPO3_REQUEST'] = $request;
-        }
-        return $request;
+            ->withAttribute('extbase', GeneralUtility::makeInstance(ExtbaseRequestParameters::class))
+        ;
+        return $serverRequest;
     }
 
-
-
-    /**
-     *
-     * @param string $key
-     * @throws \Exception
-     * @return number|string
-     */
-    public function get(string $key)
+    public function get(string $key): string|int
     {
         switch ($key) {
             case TaskManagementInformerTask::TASK_MANAGEMENT_STORAGE_UID:
-                return $this->taskManagementStorageUid;
+                return intval($this->taskManagementStorageUid);
             case TaskManagementInformerTask::INFORM_FE_USER_GROUP_UIDS:
-                return $this->informFeUserGroupUids;
+                return implode(',', $this->informFeUserGroupUids);
             case TaskManagementInformerTask::INFO_MAIL_TARGET_PAGE_UID:
-                return $this->infoMailTargetPageUid;
+                return intval($this->infoMailTargetPageUid);
             case TaskManagementInformerTask::SENDER_NAME:
                 return $this->senderName;
+            case TaskManagementInformerTask::SUBJECT:
+                return $this->subject;
             case TaskManagementInformerTask::SITE_IDENTIFIER:
                 return $this->siteIdentifier;
             default:
@@ -337,32 +274,57 @@ class TaskManagementInformerTask extends AbstractTask
         }
     }
 
-    /**
-     *
-     * @param string $key
-     * @param string|number $value
-     * @throws \Exception
-     */
-    public function set(string $key, $value)
+    public function set(array $data): void
     {
-        switch ($key) {
-            case TaskManagementInformerTask::TASK_MANAGEMENT_STORAGE_UID:
-                $this->taskManagementStorageUid = $value;
-                break;
-            case TaskManagementInformerTask::INFORM_FE_USER_GROUP_UIDS:
-                $this->informFeUserGroupUids = $value;
-                break;
-            case TaskManagementInformerTask::INFO_MAIL_TARGET_PAGE_UID:
-                $this->infoMailTargetPageUid = $value;
-                break;
-            case TaskManagementInformerTask::SENDER_NAME:
-                $this->senderName = $value;
-                break;
-            case TaskManagementInformerTask::SITE_IDENTIFIER:
-                $this->siteIdentifier = $value;
-                break;
-            default:
-                throw new \Exception("Unknown key: $key");
+        foreach ([// 
+            TaskManagementInformerTask::TASK_MANAGEMENT_STORAGE_UID, //
+            TaskManagementInformerTask::INFORM_FE_USER_GROUP_UIDS, //
+            TaskManagementInformerTask::SENDER_NAME,  //
+            TaskManagementInformerTask::SUBJECT, //
+            TaskManagementInformerTask::INFO_MAIL_TARGET_PAGE_UID, //
+            TaskManagementInformerTask::SITE_IDENTIFIER//
+        ] as $key) {
+            $value = $data[$key];
+            switch ($key) {
+                case TaskManagementInformerTask::TASK_MANAGEMENT_STORAGE_UID:
+                    $this->taskManagementStorageUid = intval($value);
+                    break;
+                case TaskManagementInformerTask::INFORM_FE_USER_GROUP_UIDS:
+                    $this->informFeUserGroupUids = GeneralUtility::intExplode(',', $value);
+                    break;
+                case TaskManagementInformerTask::INFO_MAIL_TARGET_PAGE_UID:
+                    $this->infoMailTargetPageUid = intval($value);
+                    break;
+                case TaskManagementInformerTask::SENDER_NAME:
+                    $this->senderName = $value;
+                    break;
+                case TaskManagementInformerTask::SUBJECT:
+                    $this->subject = $value;
+                    break;
+                case TaskManagementInformerTask::SITE_IDENTIFIER:
+                    $this->siteIdentifier = $value;
+                    break;
+                default:
+                    throw new \Exception("Unknown key: $key");
+            }
         }
     }
+
+    /**
+     * 
+     * @deprecated remove if all instances with the correct types are saved.
+     * @return bool
+     */
+    public function save(): bool
+    {
+        $this->taskManagementStorageUid = intval($this->taskManagementStorageUid);
+        $this->infoMailTargetPageUid = intval($this->infoMailTargetPageUid);
+        if (is_string($this->informFeUserGroupUids)) {
+            $this->informFeUserGroupUids = GeneralUtility::intExplode(',', $this->informFeUserGroupUids);
+        }
+        return parent::save();
+
+    }
+
+
 }

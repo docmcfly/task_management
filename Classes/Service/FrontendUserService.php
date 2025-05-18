@@ -1,15 +1,13 @@
 <?php
-namespace Cylancer\TaskManagement\Service;
+namespace Cylancer\CyTaskManagement\Service;
 
-use TYPO3\CMS\Core\Database\Query\QueryBuilder;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Context\Context;
-use Cylancer\TaskManagement\Domain\Repository\FrontendUserRepository;
-use Cylancer\TaskManagement\Domain\Model\FrontendUser;
-use Cylancer\TaskManagement\Domain\Model\FrontendUserGroup;
-use Cylancer\TaskManagement\Domain\Repository\FrontendUserGroupRepository;
+use Cylancer\CyTaskManagement\Domain\Repository\FrontendUserRepository;
+use Cylancer\CyTaskManagement\Domain\Model\FrontendUser;
+use Cylancer\CyTaskManagement\Domain\Model\FrontendUserGroup;
+use Cylancer\CyTaskManagement\Domain\Repository\FrontendUserGroupRepository;
 
 /**
  * This file is part of the "Task management" Extension for TYPO3 CMS.
@@ -17,44 +15,25 @@ use Cylancer\TaskManagement\Domain\Repository\FrontendUserGroupRepository;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2024 C.Gogolin <service@cylancer.net>
+ * (c) 2025 C.Gogolin <service@cylancer.net>
  *
- * @package Cylancer\TaskManagement\Service
  */
 class FrontendUserService implements SingletonInterface
 {
 
-    /** @var FrontendUserRepository   */
-    private $frontendUserRepository = null;
-
-    /** @var FrontendUserGroupRepository */
-    private $frontendUserGroupRepository = null;
-
-    /**
-     * 
-     * @param FrontendUserRepository $frontendUserRepository
-     * @param FrontendUserGroupRepository $frontendUserGroupRepository
-     */
     public function __construct(
-        FrontendUserRepository $frontendUserRepository,
-        FrontendUserGroupRepository $frontendUserGroupRepository
+        private readonly FrontendUserRepository $frontendUserRepository,
+        private readonly FrontendUserGroupRepository $frontendUserGroupRepository,
+        private readonly Context $context,
+        private readonly ConnectionPool $connectionPool
     ) {
-        $this->frontendUserRepository = $frontendUserRepository;
-        $this->frontendUserGroupRepository = $frontendUserGroupRepository;
     }
 
-    /**
-     * @return int
-     */
     public static function getUid($object): int
     {
         return $object->getUid();
     }
 
-    /**
-     *
-     * @return FrontendUser Returns the current frontend user
-     */
     public function getCurrentUser(): ?FrontendUser
     {
         if (!$this->isLogged()) {
@@ -63,50 +42,19 @@ class FrontendUserService implements SingletonInterface
         return $this->frontendUserRepository->findByUid($this->getCurrentUserUid());
     }
 
-    /**
-     *
-     * @return int
-     */
     public function getCurrentUserUid(): int
     {
         if (!$this->isLogged()) {
             return false;
         }
-        $context = GeneralUtility::makeInstance(Context::class);
-        return $context->getPropertyFromAspect('frontend.user', 'id');
+        return $this->context->getPropertyFromAspect('frontend.user', 'id');
     }
 
-    /**
-     * Check if the user is logged
-     *
-     * @return bool
-     */
     public function isLogged(): bool
     {
-        $context = GeneralUtility::makeInstance(Context::class);
-        return $context->getPropertyFromAspect('frontend.user', 'isLoggedIn');
+        return $this->context->getPropertyFromAspect('frontend.user', 'isLoggedIn');
     }
 
-
-
-    /**
-     *
-     * @param string $table
-     * @return QueryBuilder
-     */
-    protected function getQueryBuilder(string $table): QueryBuilder
-    {
-        return GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
-    }
-
-
-
-    /**
-     * Returns all groups from the frontend user group to all his leafs in the hierachy tree...
-     *
-     * @param FrontendUserGroup $userGroup
-     * @return array
-     */
     public function getTopGroups(FrontendUserGroup $userGroup): array
     {
         return $this->_getTopGroups($userGroup->getUid());
@@ -115,7 +63,7 @@ class FrontendUserService implements SingletonInterface
     private function _getTopGroups(int $ug, array &$return = []): array
     {
         $return[] = $ug;
-        $qb = $this->getQueryBuilder('fe_groups');
+        $qb = $this->connectionPool->getQueryBuilderForTable('fe_groups');
         $s = $qb->select('fe_groups.uid')
             ->from('fe_groups')
             ->where($qb->expr()
@@ -130,11 +78,10 @@ class FrontendUserService implements SingletonInterface
         return $return;
     }
 
-    public function getInformFrontendUser(array $frontendUserGroupUids)
+    public function getInformFrontendUser(array $frontendUserGroupUids): array
     {
 
-        // debug($frontendUserGroupUids);
-        $_frontendUserGroupUids = array();
+        $_frontendUserGroupUids = [];
 
         /**
          *
@@ -144,7 +91,7 @@ class FrontendUserService implements SingletonInterface
             $_frontendUserGroupUids = array_merge($frontendUserGroupUids, $this->getTopGroups($this->frontendUserGroupRepository->findByUid($guid)));
         }
         $_frontendUserGroupUids = array_unique($_frontendUserGroupUids);
-        $qb = $this->getQueryBuilder('fe_user');
+        $qb = $this->connectionPool->getQueryBuilderForTable('fe_user');
         $qb->select('uid')->from('fe_users');
         foreach ($_frontendUserGroupUids as $guid) {
             $qb->orWhere($qb->expr()
@@ -154,7 +101,7 @@ class FrontendUserService implements SingletonInterface
             ->eq('info_mail_when_repeated_task_added', 1));
         // debug($qb->getSQL());
         $s = $qb->executeQuery();
-        $return = array();
+        $return = [];
         while ($row = $s->fetchAssociative()) {
             $return[] = intVal($row['uid']);
         }

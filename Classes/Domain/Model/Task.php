@@ -1,6 +1,6 @@
 <?php
-declare(strict_types = 1);
-namespace Cylancer\TaskManagement\Domain\Model;
+declare(strict_types=1);
+namespace Cylancer\CyTaskManagement\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -11,171 +11,91 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2024 C.Gogolin <service@cylancer.net>
+ * (c) 2025 C.Gogolin <service@cylancer.net>
  *
- * @package Cylancer\TaskManagement\Domain\Model
  */
 class Task extends AbstractEntity
 {
 
-    const REPEAT_PERIOD_UNITS = [
+    public const REPEAT_PERIOD_UNITS = [
         'days',
         'weeks',
         'months',
         'years'
     ];
 
-    /** @var string */
-    protected $title = '';
+    protected ?string $title = '';
 
-    /** @var \DateTime */
-    protected $doneAt = null;
+    protected ?\DateTime $doneAt = null;
 
-    /** @var FrontendUser */
-    protected $user = null;
+    protected ?FrontendUser $user = null;
 
-    /** @var integer */
-    protected $repeatPeriodCount = 1;
+    protected int $repeatPeriodCount = 1;
 
-    /** @var string  */
-    protected $repeatPeriodUnit = 'weeks';
+    protected ?string $repeatPeriodUnit = 'weeks';
 
-    /** @var \DateTime  */
-    protected $nextRepetition = null;
+    protected ?\DateTime $nextRepetition = null;
 
-    /**
-     *
-     * @return string $title
-     */
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    /**
-     *
-     * @param string $title
-     * @return void
-     */
-    public function setTitle(string $title): void
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     *
-     * @return \DateTime $doneAt
-     */
     public function getDoneAt(): ?\DateTime
     {
         return $this->doneAt;
     }
 
-    /**
-     *
-     * @param \DateTime $doneAt
-     * @return void
-     */
     public function setDoneAt(?\DateTime $doneAt): void
     {
         $this->doneAt = $doneAt;
     }
 
-    /**
-     *
-     * @return Integer
-     */
-    public function getCruserId(): int
-    {
-        return $this->cruserId;
-    }
-
-    /**
-     *
-     * @param Integer $cruserId
-     */
-    public function setCruserId(int $cruserId): void
-    {
-        $this->cruserId = $cruserId;
-    }
-
-    /**
-     *
-     * @param FrontendUser $user
-     * @return void
-     */
-    public function setUser(FrontendUser $user): void
+    public function setUser(?FrontendUser $user): void
     {
         $this->user = $user;
     }
 
-    /**
-     *
-     * @return FrontendUser
-     */
     public function getUser(): ?FrontendUser
     {
         return $this->user;
     }
 
-    /**
-     *
-     * @return integer
-     */
     public function getRepeatPeriodCount(): int
     {
         return $this->repeatPeriodCount;
     }
 
-    /**
-     *
-     * @param integer $repeatPeriodCount
-     */
     public function setRepeatPeriodCount(int $repeatPeriodCount): void
     {
         $this->repeatPeriodCount = $repeatPeriodCount;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getRepeatPeriodUnit(): string
+    public function getRepeatPeriodUnit(): ?string
     {
         return $this->repeatPeriodUnit;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getTranslatedRepeatPeriodUnit(): string
+    public function getTranslatedRepeatPeriodUnit(): ?string
     {
-        return LocalizationUtility::translate('taskManagement.form.openTasks.repeatPeriodUnit.' . ($this->repeatPeriodCount == 1 ? 'singular.' : 'plural.') . $this->repeatPeriodUnit, 'task_management');
+        return LocalizationUtility::translate('taskManagement.form.openTasks.repeatPeriodUnit.' . ($this->repeatPeriodCount == 1 ? 'singular.' : 'plural.') . $this->repeatPeriodUnit, 'cy_task_management');
     }
 
-    /**
-     *
-     * @param string $repeatPeriodUnit
-     */
-    public function setRepeatPeriodUnit(string $repeatPeriodUnit): void
+    public function setRepeatPeriodUnit(?string $repeatPeriodUnit): void
     {
         $this->repeatPeriodUnit = $repeatPeriodUnit;
     }
 
-    /**
-     *
-     * @return \DateTime
-     */
     public function getNextRepetition(): ?\DateTime
     {
         return $this->nextRepetition;
     }
 
-    /**
-     *
-     * @param \DateTime $nextRepetition
-     */
     public function setNextRepetition(?\DateTime $nextRepetition): void
     {
         $this->nextRepetition = $nextRepetition;

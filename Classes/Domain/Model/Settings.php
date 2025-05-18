@@ -1,5 +1,5 @@
 <?php
-namespace Cylancer\TaskManagement\Domain\Model;
+namespace Cylancer\CyTaskManagement\Domain\Model;
 
 /**
  * *
@@ -9,35 +9,21 @@ namespace Cylancer\TaskManagement\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2024 C.Gogolin <service@cylancer.net>
+ * (c) 2025 C.Gogolin <service@cylancer.net>
  *
- * @package Cylancer\TaskManagement\Domain\Model
  */
 class Settings
 {
 
-    /**
-     *
-     * @var boolean
-     */
-    protected $infoMailWhenRepeatedTaskAdded = true;
+    protected bool $infoMailWhenRepeatedTaskAdded = true;
 
-    /**
-     *
-     * @return boolean
-     */
     public function getInfoMailWhenRepeatedTaskAdded(): bool
     {
         return $this->infoMailWhenRepeatedTaskAdded;
     }
 
-    /**
-     *
-     * @param boolean $b
-     * @return void
-     */
     public function setInfoMailWhenRepeatedTaskAdded(bool $b): void
     {
         $this->infoMailWhenRepeatedTaskAdded = $b;
     }
-}   
+}

@@ -3,15 +3,15 @@ $EM_CONF[$_EXTKEY] = [
     'title' => 'Task management',
     'description' => 'is a simple task management: Create, delete, done, display (open and closed tasks)',
     'category' => 'plugin',
-    'author' => 'Clemens Gogolin',
+    'author' => 'C. Gogolin',
     'author_email' => 'service@cylancer.net',
-    'state' => 'beta',
+    'state' => 'stable',
     'clearCacheOnLoad' => 0,
-    'version' => '3.0.1',
+    'version' => '4.0.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '12.4.0-12.4.99',
-            'bootstrap_package' => '14.0.00-14.9.99'
+            'typo3' => '13.4.0-13.4.99',
+            'bootstrap_package' => '15.0.00-15.9.99'
         ],
         'conflicts' => [],
         'suggests' => []
@@ -20,6 +20,7 @@ $EM_CONF[$_EXTKEY] = [
 
 
 /* CHANGLOG: 
+      3.0.0 :: Update to TYPO3 13.4 and bootstrap 15.0
       3.0.1 :: Fix the page validation in the task management task.
       3.0.0 :: Update to TYPO3 12.4 and bootstrap 13.0
       2.2.4 :: Fix the sql query in the task management task.

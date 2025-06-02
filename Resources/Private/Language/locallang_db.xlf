@@ -4,23 +4,23 @@
 		product-name="taskmanagement">
 		<header />
 		<body>
-			<trans-unit id="tx_taskmanagement_domain_model_task">
+			<trans-unit id="tx_cytaskmanagement_domain_model_task">
 				<source>Task</source>
 			</trans-unit>
-			<trans-unit id="tx_taskmanagement_domain_model_task.title">
+			<trans-unit id="tx_cytaskmanagement_domain_model_task.title">
 				<source>Title</source>
 			</trans-unit>
-			<trans-unit id="tx_taskmanagement_domain_model_task.done_at">
+			<trans-unit id="tx_cytaskmanagement_domain_model_task.done_at">
 				<source>Done At</source>
 			</trans-unit>
 
-			<trans-unit id="tx_taskmanagement_domain_model_user.info_mail_when_repeated_task_added">
+			<trans-unit id="tx_cytaskmanagement_domain_model_user.info_mail_when_repeated_task_added">
 				<source>Should an info email be sent when a task repeats?</source>
 			</trans-unit>
-			<trans-unit id="tx_taskmanagement_domain_model_user.tab_settings">
+			<trans-unit id="tx_cytaskmanagement_domain_model_user.tab_settings">
 				<source>Task management</source>
 			</trans-unit>
-			<trans-unit id="tx_taskmanagement_domain_model_user.tx_extbase_type">
+			<trans-unit id="tx_cytaskmanagement_domain_model_user.tx_extbase_type">
 				<source>Task management</source>
 			</trans-unit>
 

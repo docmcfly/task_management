@@ -20,7 +20,7 @@ ExtensionManagementUtility::addTCAcolumns(
                         'label' => '',
                     ]
                 ],
-                'readOnly' => false,
+                'readOnly' => true,
             ]
         ],
 

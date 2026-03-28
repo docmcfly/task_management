@@ -25,7 +25,6 @@ ExtensionUtility::configurePlugin(
     [
         SettingsController::class => 'show, save'
     ],
-    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
     ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
